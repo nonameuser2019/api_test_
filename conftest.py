@@ -1,5 +1,3 @@
-import sqlalchemy
-from sqlalchemy import create_engine
 import configparser
 import pytest
 import os

@@ -12,21 +12,39 @@ class TestRegistrationNewUser:
         body = JsonFixture.for_register_new_user("AlexTest")
         result = HttpManager.post(ClientRegistration.register, body)
         response_json = result.json()
-        db_connect.execute('DELETE FROM customers WHERE phone="0685340262"')
+        db_connect.execute('DELETE FROM customers WHERE phone="0685340603"')
         assert result.status_code == 200, f'Registration failed, response from the server: {response_json["message"]}'
         assert response_json['success'], f'Registration failed, response from the server:: {response_json["message"]}'
 
     @pytest.mark.smoke
-    def test_reg_with_name_of_latin_letters(self, db_connect):
-        pass
-
-
-    @pytest.mark.smoke
-    def test_reg_with_empty_name(self):
-        body = JsonFixture.for_register_new_user("")
+    @pytest.mark.parametrize('name, res', ClientRegistration.name_list)
+    def test_reg_with_different_names(self, db_connect, name, res):
+        body = JsonFixture.for_register_new_user(name)
         result = HttpManager.post(ClientRegistration.register, body)
         response_json = result.json()
-        assert result.status_code == 400, f'Response from the server: {response_json["message"]}'
-        assert not response_json['success'], f'Response from the server: {response_json["success"]}'
+        assert result.status_code == 200, f'Registration failed, response from the server: {response_json["message"]}'
+        assert response_json['success'] == res, f'Registration failed, response from the server:: {response_json["message"]}'
+        db_connect.execute(f"DELETE FROM customers WHERE phone={body['data']['login']}")
+
+    @pytest.mark.smoke
+    @pytest.mark.xfail
+    def test_check_reg_with_empty_all_param(self, db_connect):
+        body = JsonFixture.for_register_new_user("", "", "")
+        result = HttpManager.post(ClientRegistration.register, body)
+        response_json = result.json()
+        assert result.status_code == 200, f'Registration failed, response from the server: {response_json["message"]}'
+        assert response_json['success'] == True, f'Registration failed, response from the server:: {response_json["message"]}'
+        db_connect.execute('DELETE FROM customers WHERE phone="0685340603"')
 
     @pytest.mark.test
+    @pytest.mark.smoke
+    @pytest.mark.xfail
+    def test_reg_with_empty_login(self, db_connect):
+        body = JsonFixture.for_register_new_user('Alex', "")
+        result = HttpManager.post(ClientRegistration.register, body)
+        response_json = result.json()
+        assert result.status_code == 200, f'Registration failed, response from the server: {response_json["message"]}'
+        assert response_json[
+                   'success'] == True, f'Registration failed, response from the server:: {response_json["message"]}'
+        db_connect.execute('DELETE FROM customers WHERE phone="0685340603"')
+
