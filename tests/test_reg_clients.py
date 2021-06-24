@@ -64,7 +64,6 @@ class TestRegistrationNewUser:
         assert not response_json['success'], f'Registration failed, response from the server:: {response_json["message"]}'
         db_connect.execute('DELETE FROM customers WHERE phone="0685340603"')
 
-    @pytest.mark.test
     @pytest.mark.smoke
     @pytest.mark.parametrize('phone, res', ClientRegistration.phone_list)
     def test_reg_with_different_phones(self, db_connect, phone, res):
@@ -73,3 +72,35 @@ class TestRegistrationNewUser:
         response_json = result.json()
         assert response_json['success'] == res, f'Registration failed, response from the server:: {response_json["message"]}'
         db_connect.execute(f"DELETE FROM customers WHERE phone='0685340603'")
+
+    @pytest.mark.smoke
+    @pytest.mark.parametrize('email, res', ClientRegistration.email_list)
+    def test_reg_with_different_emails(self, db_connect, email, res):
+        body = JsonFixture.for_register_new_user(login=email)
+        result = HttpManager.post(ClientRegistration.register, body)
+        response_json = result.json()
+        assert response_json['success'] == res, f'Registration failed, response from the server:: {response_json["message"]}'
+        try:
+            db_connect.execute(f"DELETE FROM customers WHERE email={response_json['data']['customer_id']} or name='main_test'")
+        except:
+            pass
+
+    @pytest.mark.test
+    @pytest.mark.smoke
+    @pytest.mark.parametrize('password, res', ClientRegistration.password_list)
+    def test_reg_with_different_passwords(self, db_connect, password, res):
+        body = JsonFixture.for_register_new_user(password=password)
+        result = HttpManager.post(ClientRegistration.register, body)
+        response_json = result.json()
+        assert response_json[
+                   'success'] == res, f'Registration failed, response from the server:: {response_json["message"]}'
+        try:
+            db_connect.execute(
+                f"DELETE FROM customers WHERE email={response_json['data']['customer_id']} or name='main_test'")
+        except:
+            pass
+
+class AuthCustomers:
+    pass
+
+
