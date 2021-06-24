@@ -2,8 +2,8 @@ import pytest
 
 
 class ClientRegistration:
-    register = 'https://api.platform.masterservice.company/api/v1/customer/register'
-    name_list = [('Александр', True), ('Марк-Эдгар', True), ('Mark-Edgar', True), ('', True),('Al', True),
+    reg_endpoint = 'https://api.platform.masterservice.company/api/v1/customer/register'
+    name_list = [('Александр', True), ('Марк-Эдгар', True), ('Mark-Edgar', True), ('', True), ('Al', True),
                  ('Alex1', True), ('   ', True), ('Alex+!', True)
                  ]
     phone_list = [
@@ -19,4 +19,12 @@ class ClientRegistration:
     password_list = [
         ('!Qwerty123', True), ('Uytrew1', False), ('FRASDFN1', False), ('qazwsx2', False), ('qazwsdfG', False),
         ('Qwerty1щ', False), ('Qwerty1Ц', False)
+    ]
+
+
+class ClientAuth:
+    login_endpoint = 'https://api.platform.masterservice.company/api/v1/customer/login'
+    login_password_list = [
+        ('', 'Qwerty123', False), ('main_test@qa.com', '', False), ('', '', False), ('main_test@qa.co', 'Qwerty123', False),
+        ('main_test@qa.com', 'False', False), ('main_test@qa.co', 'Qwerty1231', False)
     ]

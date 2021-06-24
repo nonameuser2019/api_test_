@@ -9,3 +9,12 @@ class JsonFixture:
                 "password": password}
         }
         return json
+    @staticmethod
+    def for_login_customers(login='0777777777', password='Qwerty123'):
+        json = {
+            "data": {
+                "login": login,
+                "password": password
+            }
+        }
+        return json
