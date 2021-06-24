@@ -2,6 +2,9 @@ import configparser
 import pytest
 import os
 import pymysql.cursors
+import requests
+from tests.utils.json_fixture import JsonFixture
+from tests.utils.variables import ClientAuth
 
 
 @pytest.fixture()
@@ -32,3 +35,9 @@ def db_connect():
         connection.commit()
         connection.close()
         print('\nClosed db connect')
+
+    @pytest.fixture()
+    def auth():
+        body = JsonFixture.for_login_customers()
+        result = requests.post(ClientAuth.login_endpoint, body)
+        return result

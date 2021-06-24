@@ -18,3 +18,11 @@ class JsonFixture:
             }
         }
         return json
+
+    @staticmethod
+    def get_headers(token):
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+token
+        }
+        return headers

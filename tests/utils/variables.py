@@ -28,3 +28,6 @@ class ClientAuth:
         ('', 'Qwerty123', False), ('main_test@qa.com', '', False), ('', '', False), ('main_test@qa.co', 'Qwerty123', False),
         ('main_test@qa.com', 'False', False), ('main_test@qa.co', 'Qwerty1231', False)
     ]
+
+class LogOut:
+    logout_endpoint = 'https://api.platform.masterservice.company/api/v1/customer/logout'
