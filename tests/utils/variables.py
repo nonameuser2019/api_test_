@@ -29,5 +29,8 @@ class ClientAuth:
         ('main_test@qa.com', 'False', False), ('main_test@qa.co', 'Qwerty1231', False)
     ]
 
-class LogOut:
+class ClientLogOut:
     logout_endpoint = 'https://api.platform.masterservice.company/api/v1/customer/logout'
+
+class ClientProfileEdit:
+    edit_profile_endpoint = 'https://api.platform.masterservice.company/api/v1/customer/profile/edit'

@@ -26,3 +26,22 @@ class JsonFixture:
             'Authorization': 'Bearer '+token
         }
         return headers
+
+    @staticmethod
+    def get_header_without_token():
+        headers = {
+            'Content-Type': 'application/json'
+        }
+        return headers
+
+    @staticmethod
+    def profile_data(email=None, phone=None, name=None, password=None):
+        profile_data = {
+            "data": {
+                "email": email,
+                "phone": phone,
+                "name": name,
+                "password": password
+            }
+        }
+        return profile_data

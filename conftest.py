@@ -13,7 +13,6 @@ def db_connect():
     inifile = os.path.join(thisfolder, 'db.ini')
     parser = configparser.ConfigParser()
     parser.read(inifile)
-
     HOST = parser.get('db', 'host')
     PORT = int(parser.get('db', 'port'))
     DB_NAME = parser.get('db', 'db_name')
@@ -40,5 +39,5 @@ def db_connect():
 def auth():
     body = JsonFixture.for_login_customers()
     headers = {'Content-Type': 'application/json'}
-    result = requests.post(ClientAuth.login_endpoint, body, headers=headers)
+    result = requests.post(ClientAuth.login_endpoint, json=body, headers=headers)
     return result

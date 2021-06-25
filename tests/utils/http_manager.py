@@ -1,17 +1,18 @@
 import requests
 
 class HttpManager:
-    headers = {'Content-Type': 'application/json'}
+    #headers = {'Content-Type': 'application/json'}
 
     @staticmethod
-    def get(url):
+    def get(url, headers):
         result = requests.get(url,
-                              headers=HttpManager.headers)
+                              headers=headers)
         return result
 
     @staticmethod
-    def post(url, body):
+    def post(url, body, headers):
         result = requests.post(url,
                                json=body,
-                               headers=HttpManager.headers)
+                               headers=headers)
         return result
+

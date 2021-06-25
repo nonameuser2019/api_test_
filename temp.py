@@ -2,6 +2,15 @@ import configparser
 import pytest
 import os
 import pymysql.cursors
+import configparser
+import pytest
+import os
+import pymysql.cursors
+import requests
+from tests.utils.json_fixture import JsonFixture
+from tests.utils.variables import ClientAuth
+import bcrypt
+
 
 # thisfolder = os.path.dirname(os.path.abspath(__file__))
 # inifile = os.path.join(thisfolder, 'db.ini')
@@ -22,19 +31,21 @@ import pymysql.cursors
 #                              charset='utf8mb4',
 #                              cursorclass=pymysql.cursors.DictCursor)
 # cursor = connection.cursor()
-# cursor.execute('SELECT name,phone FROM customers WHERE phone="0685340603"')
+# cursor.execute('SELECT name, email, phone FROM customers WHERE id=19392')
 # data = cursor.fetchall()
-# print(data[0]['name'])
+# print(data[0]['email'])
 # connection.commit()
-name = 'Alex'
-login = '0685340603'
-password = 'Qwerty123'
-json = {
-            "data": {
-                "name": name,
-                "login": login,
-                "password": password}
-        }
 
 
-print(json['data']['login'])
+# body = JsonFixture.for_login_customers()
+# headers = {'Content-Type': 'application/json'}
+# result = requests.post(ClientAuth.login_endpoint, json=body, headers=headers)
+# print(result.status_code)
+
+parser = configparser.ConfigParser()
+parser.read('test_data.ini')
+name = parser.get('users_data', 'name')
+print(name)
+parser.set('users_data', 'name', 'alex')
+name = parser.get('users_data', 'name')
+print(name)
