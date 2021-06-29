@@ -1,3 +1,5 @@
+import configparser
+
 class JsonFixture:
 
     @staticmethod
@@ -9,8 +11,9 @@ class JsonFixture:
                 "password": password}
         }
         return json
+
     @staticmethod
-    def for_login_customers(login='0777777777', password='Qwerty123'):
+    def for_login_customers(login='0000000000', password='Qwerty123'):
         json = {
             "data": {
                 "login": login,
@@ -45,3 +48,13 @@ class JsonFixture:
             }
         }
         return profile_data
+
+    @staticmethod
+    def product_data(product_id=None, attribute_id=None, count=None, client_id=None):
+        product_data = {
+            "product_id": product_id,
+            "attribute_id": attribute_id,
+            "count": count,
+            "client_id": client_id
+        }
+        return product_data

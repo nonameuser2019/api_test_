@@ -4,7 +4,8 @@ import os
 import pymysql.cursors
 import requests
 from tests.utils.json_fixture import JsonFixture
-from tests.utils.variables import ClientAuth
+from tests.utils.variables import ClientAuth, ClientRegistration
+from tests.utils.http_manager import HttpManager
 
 
 @pytest.fixture()
@@ -41,3 +42,10 @@ def auth():
     headers = {'Content-Type': 'application/json'}
     result = requests.post(ClientAuth.login_endpoint, json=body, headers=headers)
     return result
+
+@pytest.fixture()
+def create_account():
+    body = JsonFixture.for_register_new_user('Main-Test', '0777777777', 'Qwerty123')
+    response = HttpManager.post(ClientRegistration.reg_endpoint, body, headers=JsonFixture.get_header_without_token())
+    return response
+

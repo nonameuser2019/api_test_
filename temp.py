@@ -10,6 +10,7 @@ import requests
 from tests.utils.json_fixture import JsonFixture
 from tests.utils.variables import ClientAuth
 import bcrypt
+from tests.utils.json_fixture import JsonFixture
 
 
 # thisfolder = os.path.dirname(os.path.abspath(__file__))
@@ -31,9 +32,9 @@ import bcrypt
 #                              charset='utf8mb4',
 #                              cursorclass=pymysql.cursors.DictCursor)
 # cursor = connection.cursor()
-# cursor.execute('SELECT name, email, phone FROM customers WHERE id=19392')
+# cursor.execute('SELECT name, email, phone FROM customers WHERE id=1')
 # data = cursor.fetchall()
-# print(data[0]['email'])
+# print(data)
 # connection.commit()
 
 
@@ -42,10 +43,13 @@ import bcrypt
 # result = requests.post(ClientAuth.login_endpoint, json=body, headers=headers)
 # print(result.status_code)
 
-parser = configparser.ConfigParser()
-parser.read('test_data.ini')
-name = parser.get('users_data', 'name')
-print(name)
-parser.set('users_data', 'name', 'alex')
-name = parser.get('users_data', 'name')
-print(name)
+
+
+#get response form add card item
+endpoint = 'https://api.platform.masterservice.company/api/v1/cart/'
+body = JsonFixture.product_data(0, "", 2, "")
+headers = {'Content-Type': 'application/json'}
+response = requests.post(endpoint, json=body, headers=headers)
+print(response.status_code)
+response_json = response.json()
+print(response_json)

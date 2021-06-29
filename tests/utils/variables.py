@@ -34,3 +34,6 @@ class ClientLogOut:
 
 class ClientProfileEdit:
     edit_profile_endpoint = 'https://api.platform.masterservice.company/api/v1/customer/profile/edit'
+
+class Cart:
+    add_cart_item_endpoint = 'https://api.platform.masterservice.company/api/v1/cart/'
