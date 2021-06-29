@@ -46,10 +46,22 @@ from tests.utils.json_fixture import JsonFixture
 
 
 #get response form add card item
-endpoint = 'https://api.platform.masterservice.company/api/v1/cart/'
-body = JsonFixture.product_data(0, "", 2, "")
-headers = {'Content-Type': 'application/json'}
-response = requests.post(endpoint, json=body, headers=headers)
-print(response.status_code)
-response_json = response.json()
-print(response_json)
+# endpoint = 'https://api.platform.masterservice.company/api/v1/cart/'
+# body = JsonFixture.product_data(None, "", 2, "")
+# headers = {'Content-Type': 'application/json'}
+# response = requests.post(endpoint, json=body, headers=headers)
+# print(response.status_code)
+# response_json = response.json()
+# print(response_json)
+# print(body)
+
+
+endpoint = 'https://api.platform.masterservice.company/api/v1/product/'
+headers= {
+    'Content-Type': 'application/json'
+}
+product_id = 5010187
+payload = {"id": product_id}
+response = requests.get(endpoint, headers=headers, params=payload)
+print(response)
+print(response.json()["data"]["quantity"])

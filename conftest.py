@@ -49,3 +49,15 @@ def create_account():
     response = HttpManager.post(ClientRegistration.reg_endpoint, body, headers=JsonFixture.get_header_without_token())
     return response
 
+@pytest.fixture()
+def get_product_balance(product_id=5010187):
+    endpoint = 'https://api.platform.masterservice.company/api/v1/product/'
+    headers= {
+        'Content-Type': 'application/json'
+    }
+    payload = {"id": product_id}
+    response = requests.get(endpoint, headers=headers, params=payload)
+    return response.json()["data"]["quantity"]
+
+
+
