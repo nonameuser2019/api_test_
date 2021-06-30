@@ -160,7 +160,6 @@ class TestDellItem:
             assert False, f'Response from server is not json format'
         db_connect.execute(f"DELETE FROM cart_temp WHERE id={result.json()['data']['id']}")
 
-    @pytest.mark.test
     @pytest.mark.smoke
     def test_check_possibility_delete_item_with_wrong_product_id(self, create_cart_item, db_connect):
         cart_id_hash, product_id, cart_id = create_cart_item
@@ -192,4 +191,32 @@ class TestDellItem:
         except JSONDecodeError:
             assert False, f'Response from server is not json format'
         db_connect.execute(f"DELETE FROM cart_temp WHERE id={result.json()['data']['id']}")
-        
+
+    # Below are test from update cart items
+    @pytest.mark.test
+    @pytest.mark.smoke
+    def test_check_possibility_increase_of_product(self, create_cart_item, db_connect):
+        cart_id_hash, product_id, cart_id = create_cart_item
+        body = JsonFixture.product_data(product_id, "", 5, "")
+        result = HttpManager.delete(Cart.update_cart_endpoint + cart_id_hash, body, JsonFixture.get_header_without_token())
+        assert result.status_code == 200, f'Wrong status code. Expected result is 201 but actual status code ' \
+                                          f'is: {result.status_code}'
+        try:
+            cart = json.loads(result.json()['data']['cart'])[5010187]
+            print(type(cart))
+            print(cart)
+            assert cart == 5, f'New count item is wrong. Expected result 5. Actual result {cart}'
+        except JSONDecodeError:
+            assert False, f'Response from server is not json format'
+        db_connect.execute(f"DELETE FROM cart_temp WHERE id={result.json()['data']['id']}")
+
+
+
+
+
+
+
+
+
+
+

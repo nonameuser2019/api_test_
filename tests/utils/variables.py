@@ -38,7 +38,7 @@ class ClientProfileEdit:
 class Cart:
     add_cart_item_endpoint = 'https://api.platform.masterservice.company/api/v1/cart/'
     del_car_item_endpoint = 'https://api.platform.masterservice.company/api/v1/cart/'
-
+    update_cart_endpoint = 'https://api.platform.masterservice.company/api/v1/cart/'
     product_id_list = [
         (5010187, "", 1, "", True, 200), (None, "", 2, "", False, 400), ("", "", 1, "", False, 400), (100500100, "", 1, "", False, 400),
         ("FFF", "", 1, "", False, 400)

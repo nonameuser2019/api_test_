@@ -69,3 +69,6 @@ def create_cart_item(product_id=5010187, count=1):
     return cart_id_hash, product_id, cart_id
 
 
+
+
+
