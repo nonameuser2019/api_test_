@@ -58,3 +58,11 @@ class JsonFixture:
             "client_id": client_id
         }
         return product_data
+
+    @staticmethod
+    def del_prod_data(product_id=5010187, attribute_id=""):
+        del_product_data = {
+            "product_id": product_id,
+            "attribute_id": attribute_id
+        }
+        return del_product_data

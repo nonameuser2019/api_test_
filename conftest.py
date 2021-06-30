@@ -4,7 +4,7 @@ import os
 import pymysql.cursors
 import requests
 from tests.utils.json_fixture import JsonFixture
-from tests.utils.variables import ClientAuth, ClientRegistration
+from tests.utils.variables import ClientAuth, ClientRegistration, Cart
 from tests.utils.http_manager import HttpManager
 
 
@@ -59,5 +59,13 @@ def get_product_balance(product_id=5010187):
     response = requests.get(endpoint, headers=headers, params=payload)
     return response.json()["data"]["quantity"]
 
+@pytest.fixture()
+def create_cart_item(product_id=5010187, count=1):
+    body = JsonFixture.product_data(product_id, "", count, "")
+    response = HttpManager.post(Cart.add_cart_item_endpoint, body, JsonFixture.get_header_without_token())
+    response_json = response.json()
+    cart_id_hash = response_json['data']['cart_id_hash']
+    cart_id = response_json['data']['id']
+    return cart_id_hash, product_id, cart_id
 
 

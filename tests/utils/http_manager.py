@@ -16,3 +16,14 @@ class HttpManager:
                                headers=headers)
         return result
 
+    @staticmethod
+    def delete(url, body, headers):
+        result = requests.delete(url,
+                                 json=body,
+                                 headers=headers)
+        return result
+
+    @staticmethod
+    def update(url, body, headers):
+        result = requests.put(url, json=body, headers=headers)
+        return result
