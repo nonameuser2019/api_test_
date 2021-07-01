@@ -60,7 +60,7 @@ def get_product_balance(product_id=5010187):
     return response.json()["data"]["quantity"]
 
 @pytest.fixture()
-def create_cart_item(product_id=5010187, count=1):
+def create_cart_item(product_id=5010187, count=2):
     body = JsonFixture.product_data(product_id, "", count, "")
     response = HttpManager.post(Cart.add_cart_item_endpoint, body, JsonFixture.get_header_without_token())
     response_json = response.json()
