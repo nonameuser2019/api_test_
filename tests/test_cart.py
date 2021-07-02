@@ -194,21 +194,18 @@ class TestDellItem:
         db_connect.execute(f"DELETE FROM cart_temp WHERE id={result.json()['data']['id']}")
 
     # Below are test from update cart items
+    @pytest.mark.test
     @pytest.mark.smoke
     @pytest.mark.parametrize('count, res, status_code', Cart.product_change_count_list)
     def test_check_possibility_increase_of_product_count(self, create_cart_item, db_connect, count, res, status_code):
         cart_id_hash, product_id, cart_id = create_cart_item
         body = JsonFixture.product_data(product_id, "", count, "")
-        result = HttpManager.delete(Cart.update_cart_endpoint + cart_id_hash, body, JsonFixture.get_header_without_token())
+        result = HttpManager.update(Cart.update_cart_endpoint + cart_id_hash, body, JsonFixture.get_header_without_token())
         assert result.status_code == 200, f'Wrong status code. Expected result is 201 but actual status code ' \
                                           f'is: {result.status_code}'
-        try:
-            cart = json.loads(result.content)['data']['cart']
-            actual_count = json.loads(cart)['5010187'][0]['count']
-            assert actual_count == count, f'New count item is wrong. Expected result {count}. Actual result {actual_count}'
-        except JSONDecodeError:
-            assert False, f'Response from server is not json format'
-        db_connect.execute(f"DELETE FROM cart_temp WHERE id={result.json()['data']['id']}")
+        actual_count = json.loads(result.content)['data'][str(product_id)][0]['count']
+        assert actual_count == count, f'New count item is wrong. Expected result {count}. Actual result {actual_count}'
+        db_connect.execute(f"DELETE FROM cart_temp WHERE id={cart_id}")
 
     @pytest.mark.smoke
     def test_check_change_count_to_over_stock(self, create_cart_item, get_product_balance, db_connect):

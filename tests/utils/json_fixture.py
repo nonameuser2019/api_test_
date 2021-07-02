@@ -67,7 +67,7 @@ class JsonFixture:
         }
         return del_product_data
 
-    @staticmethod
+    #@staticmethod
     # def create_order_data():
     #     order_data = {
     #         "contact_details":{
