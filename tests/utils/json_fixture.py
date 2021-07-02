@@ -66,3 +66,28 @@ class JsonFixture:
             "attribute_id": attribute_id
         }
         return del_product_data
+
+    @staticmethod
+    # def create_order_data():
+    #     order_data = {
+    #         "contact_details":{
+    #             "name": "Test Customer",
+    #             "phone": "0680000000",
+    #             "email": "test@gmail.com",
+    #             "res_name": "Test Customer",
+    #             "res_phone": "0680000000"},
+    #         "delivery": {
+    #             "type_guid": ,
+    #             "company_guid": "e80b3d9f-091f-11e5-bcf7-6805ca197e53",
+    #             "province_guid": province_guid,
+    #             "city_guid": city_guid,
+    #             "office_guid": office_guid,
+    #             "address_pickup_guid": address_pickup_guid,
+    #             "address_delivery": address_delivery},
+    #         "payment_method": payment_method,
+    #         "comment": comment,
+    #         "client_id": client_id,
+    #         "currency_id": currency_id,
+    #         "cart_id_hash": cart_id_hash
+    #     }
+    #     return order_data

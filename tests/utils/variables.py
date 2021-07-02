@@ -3,8 +3,8 @@ import pytest
 
 class ClientRegistration:
     reg_endpoint = 'https://api.platform.masterservice.company/api/v1/customer/register'
-    name_list = [('Александр', True), ('Марк-Эдгар', True), ('Mark-Edgar', True), ('', True), ('Al', True),
-                 ('Alex1', True), ('   ', True), ('Alex+!', True)
+    name_list = [('Александр', True), ('Марк-Эдгар', True), ('Mark-Edgar', True), ('', False), ('Al', False),
+                 ('Alex1', False), ('   ', False), ('Alex+!', False)
                  ]
     phone_list = [
         ('0685340603', True), ('30685340603', True), ('380685340603', True), ('+380685340603', True), ('685340603', False),

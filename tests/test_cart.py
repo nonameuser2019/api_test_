@@ -27,8 +27,9 @@ class TestCartAddItem:
         client_id = ""
         body = JsonFixture.product_data(product_id, attr_id, count, client_id)
         result = HttpManager.post(Cart.add_cart_item_endpoint, body, headers=JsonFixture.get_header_without_token())
+        cart = json.loads(result.content)['data']['cart']
         assert result.status_code == 200, f'Wrong status code from server. Status code from server: {result.status_code}'
-        assert result.json()["data"][product_id]["count"] == count
+        assert json.loads(cart)['5010187'][0]['count'] == count
         db_connect.execute(f"DELETE FROM cart_temp WHERE id={result.json()['data']['id']}")
 
     @pytest.mark.smoke
@@ -213,6 +214,7 @@ class TestDellItem:
     def test_check_change_count_to_over_stock(self, create_cart_item, get_product_balance, db_connect):
         cart_id_hash, product_id, cart_id = create_cart_item
         product_count = get_product_balance
+        print(type(product_count))
         body = JsonFixture.product_data(product_id, "", product_count + 1, "")
         result = HttpManager.delete(Cart.update_cart_endpoint + cart_id_hash, body,
                                     JsonFixture.get_header_without_token())
@@ -228,7 +230,6 @@ class TestDellItem:
 
 
     # Below are test from get cart item
-    @pytest.mark.test
     @pytest.mark.smoke
     def test_get_cart_item_with_valid_hash(self, create_cart_item, db_connect):
         cart_id_hash, product_id, cart_id = create_cart_item

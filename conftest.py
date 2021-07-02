@@ -57,7 +57,7 @@ def get_product_balance(product_id=5010187):
     }
     payload = {"id": product_id}
     response = requests.get(endpoint, headers=headers, params=payload)
-    return response.json()["data"]["quantity"]
+    return int(response.json()["data"]["quantity"])
 
 @pytest.fixture()
 def create_cart_item(product_id=5010187, count=2):
