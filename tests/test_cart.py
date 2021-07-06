@@ -193,6 +193,18 @@ class TestDellItem:
             assert False, f'Response from server is not json format'
         db_connect.execute(f"DELETE FROM cart_temp WHERE id={result.json()['data']['id']}")
 
+    @pytest.mark.smoke
+    def test_check_possibility_delete_one_item_from_two_products(self, create_cart_item, db_connect):
+        cart_id_hash, product_id, cart_id = create_cart_item
+        body = JsonFixture.product_data(282799, "", 2, "")
+        HttpManager.update(Cart.update_cart_endpoint + cart_id_hash, body, JsonFixture.get_header_without_token())
+        result = HttpManager.delete(Cart.del_car_item_endpoint + cart_id_hash, body, JsonFixture.get_header_without_token())
+        assert result.status_code == 200, f'Wrong status code. Expected result is 200 but actual status code ' \
+                                          f'is: {result.status_code}'
+        assert result.json()['success'], f'Wrong success message. Expected result False.' \
+                                             f' Actual result {result.json()["success"]}'
+        db_connect.execute(f"DELETE FROM cart_temp WHERE id={cart_id}")
+
 
 class TestUpdateCartItems:
     @pytest.mark.smoke
@@ -262,7 +274,6 @@ class TestUpdateCartItems:
                                          f' Actual result {result.json()["success"]}'
         db_connect.execute(f"DELETE FROM cart_temp WHERE id={cart_id}")
 
-    @pytest.mark.test
     @pytest.mark.smoke
     def test_check_possibility_send_request_with_wrong_cart_hash(self, create_cart_item, db_connect):
         cart_id_hash, product_id, cart_id = create_cart_item
@@ -272,7 +283,6 @@ class TestUpdateCartItems:
                                              f' Actual result {result.json()["success"]}'
         db_connect.execute(f"DELETE FROM cart_temp WHERE id={cart_id}")
 
-    @pytest.mark.test
     @pytest.mark.smoke
     def test_check_possibility_send_request_without_cart_hash(self, create_cart_item, db_connect):
         cart_id_hash, product_id, cart_id = create_cart_item
