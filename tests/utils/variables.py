@@ -51,3 +51,6 @@ class Cart:
     product_change_count_list = [
         (5, True, 200), (1, True, 200), (0, False, 400), (2, False, 400)
     ]
+
+class Orders:
+    create_order_endpoint = 'https://api.platform.masterservice.company/api/v1/order-add'

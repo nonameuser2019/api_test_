@@ -32,10 +32,23 @@ connection = pymysql.connect(host=HOST,
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 cursor = connection.cursor()
-cursor.execute('SELECT id FROM cart_temp')
+cursor.execute('SELECT name, guid FROM service_addresses')
 data = cursor.fetchall()
 print(data)
+def get_adress_guid(adress):
+    cursor = connection.cursor()
+    cursor.execute('SELECT name, guid FROM service_addresses')
+    data = cursor.fetchall()
+    for ad in data:
+        if adress in ad['name']:
+            return ad['guid']
+
+
+
 connection.commit()
+body = JsonFixture.order_data()
+body['delivery']['address_pickup_guid'] = get_adress_guid('Биологическая')
+print(body['delivery']['address_pickup_guid'])
 
 
 # body = JsonFixture.for_login_customers()
