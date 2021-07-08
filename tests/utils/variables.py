@@ -54,3 +54,7 @@ class Cart:
 
 class Orders:
     create_order_endpoint = 'https://api.platform.masterservice.company/api/v1/order-add'
+    delivery_type_list = [
+        ('f442a653-f442a653-f442a653', False, 400), ('', False, 400),  (None, False, 400), (True, False, 400),
+        (False, False, 400), (0, False, 400)
+    ]
