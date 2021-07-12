@@ -1,4 +1,6 @@
 import configparser
+import random
+
 import pytest
 import os
 import pymysql.cursors
@@ -31,10 +33,19 @@ connection = pymysql.connect(host=HOST,
                              db=DB_NAME,
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
-# cursor = connection.cursor()
-# cursor.execute('SELECT name, guid FROM service_addresses')
-# data = cursor.fetchall()
-# print(data)
+cursor = connection.cursor()
+area_list = cursor.execute(f'SELECT DescriptionRu, Ref FROM delivery_np_area')
+data = cursor.fetchall()
+random_area = data[random.randint(0, len(data))]['Ref']
+print(random_area)
+cursor.execute("SELECT DescriptionRu, Ref FROM delivery_np_cities WHERE Area=(%s)", random_area)
+temp_data = cursor.fetchall()
+random_city = temp_data[random.randint(0, len(temp_data))]['Ref']
+cursor.execute("SELECT DescriptionRu, Ref FROM delivery_np_offices WHERE CityRef=(%s)", random_city)
+office_list = cursor.fetchall()
+print(office_list)
+
+
 
 
 def get_adress_guid(adress):
@@ -54,8 +65,7 @@ def get_all_adresses_guid():
         adress_list.append(ad['guid'])
     return adress_list
 
-adress_lest = get_all_adresses_guid()
-print(adress_lest)
+
 
 
 # connection.commit()

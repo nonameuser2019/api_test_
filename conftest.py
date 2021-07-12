@@ -73,7 +73,7 @@ def create_cart_item(product_id=5010187, count=2):
     return cart_id_hash, product_id, cart_id
 
 
-@pytest.fixture(db_connect)
+@pytest.fixture()
 def get_adress_pick_up_guid(city):
     db_connect.execute('SELECT name, guid FROM service_addresses')
     data = db_connect.fetchall()

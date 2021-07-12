@@ -58,3 +58,7 @@ class Orders:
         ('f442a653-f442a653-f442a653', False, 400), ('', False, 400),  (None, False, 400), (True, False, 400),
         (False, False, 400), (0, False, 400)
     ]
+    adress_pickup_list = [
+        ('', False, 400), (None, False, 400), (True, False, 400), (False, False, 400),
+        ('cacdaf1a-8638-11e7-a99d-a0369f7dce00', False, 400)
+    ]
