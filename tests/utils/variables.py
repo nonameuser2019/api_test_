@@ -62,3 +62,6 @@ class Orders:
         ('', False, 400), (None, False, 400), (True, False, 400), (False, False, 400),
         ('cacdaf1a-8638-11e7-a99d-a0369f7dce00', False, 400)
     ]
+    company_guid_list = [
+        ('e80b3d9f-091f-11e5-bcf7-6805ca197e01', False, 400),
+    ]

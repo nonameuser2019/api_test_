@@ -6,6 +6,12 @@ import random
 
 
 class TestCreateOrder:
+    # these defaults data for new post
+    company_guid_np = 'e80b3d9f-091f-11e5-bcf7-6805ca197e53'
+    province_guid_np = '7150813b-9b87-11de-822f-000c2965ae0e'
+    city_guid_np = 'd40d5ff5-fcca-11e1-a04c-d4ae527baec9'
+    office_guid_np = 'd40d5ff5-fcca-11e1-a04c-d4ae527baec9'
+
     # below all tests with for check delivery type pickup
     @pytest.mark.smoke
     def test_check_possibility_create_order_pickup_delivery(self, create_cart_item, db_connect):
@@ -87,6 +93,7 @@ class TestCreateOrder:
     def test_create_order_with_different_np_params(self, create_cart_item, db_connect):
         cart_id_hash, product_id, cart_id = create_cart_item
         body = JsonFixture.order_data()
+        body['delivery']['type_guid'] = 'b983ffd7-6fee-4341-823c-bc970e783c64'
         body['delivery']['company_guid'] = 'e80b3d9f-091f-11e5-bcf7-6805ca197e53'
         body['cart_id_hash'] = cart_id_hash
         db_connect.execute(f'SELECT DescriptionRu, Ref FROM delivery_np_area')
@@ -103,4 +110,29 @@ class TestCreateOrder:
                                                   f'result is {result.status_code}'
         assert result.json()['success'], 'Wrong success result. Expected result True. Actual ' \
                                                 'result: {result.json()["success"]}'
+
+    @pytest.mark.test
+    @pytest.mark.smoke
+    def test_create_order_with_wrong_company_guid_param(self, create_cart_item, db_connect):
+        cart_id_hash, product_id, cart_id = create_cart_item
+        body = JsonFixture.order_data()
+        body['delivery'].pop('company_guid')
+        body['cart_id_hash'] = cart_id_hash
+        body['delivery']['province_guid'] = TestCreateOrder.province_guid_np
+        body['delivery']['city_guid'] = TestCreateOrder.city_guid_np
+        body['delivery']['office_guid'] = TestCreateOrder.office_guid_np
+        result = HttpManager.post(Orders.create_order_endpoint, body, JsonFixture.get_header_without_token())
+        assert result.status_code == 200, f'Wrong status code. Expected result is 200. Actual ' \
+                                          f'result is {result.status_code}'
+        assert result.json()['success'], 'Wrong success result. Expected result True. Actual ' \
+                                         'result: {result.json()["success"]}'
+
+
+
+
+
+
+
+
+
 

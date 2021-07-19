@@ -106,6 +106,16 @@ class TestCartAddItem:
                                          f'{result.json()["success"]}'
         db_connect.execute(f"DELETE FROM cart_temp WHERE id={result.json()['data']['id']}")
 
+    @pytest.mark.smoke
+    def test_send_request_without_count_param(self, db_connect):
+        body = JsonFixture.product_data(5010187, "", 1, '')
+        body.pop('count')
+        result = HttpManager.post(Cart.add_cart_item_endpoint, body, headers=JsonFixture.get_header_without_token())
+        assert result.status_code == 400, f'Error server allows send request without count param'
+        assert result.json()['success'], f'Error expected result success == false but response from servrer: ' \
+                                         f'{result.json()["success"]}'
+        db_connect.execute(f"DELETE FROM cart_temp WHERE id={result.json()['data']['id']}")
+
 
 class TestDellItem:
     @pytest.mark.smoke
