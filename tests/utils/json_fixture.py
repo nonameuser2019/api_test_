@@ -77,12 +77,12 @@ class JsonFixture:
                 "res_name": "Test Customer",
                 "res_phone": "0680000000"},
             "delivery": {
-                "type_guid": "f442a653-b32b-4be9-9b5e-4a5abb206d85",
+                "type_guid": "f442a653-b32b-4be9-9b5e-4a5abb206d85",  # самовывоз
                 "company_guid": "",
                 "province_guid": "",
                 "city_guid": "",
                 "office_guid": "",
-                "address_pickup_guid": "cacdaf1a-8638-11e7-a99d-a0369f7dce69",
+                "address_pickup_guid": "cacdaf1a-8638-11e7-a99d-a0369f7dce69",  # биологическая
                 "address_delivery": ""},
             "payment_method": "d1e84b1a-e266-4a41-b553-0d030e40bc26",
             "comment": "Test Comment",
