@@ -65,7 +65,7 @@ class Orders:
     company_guid_list = [
         ('e80b3d9f-091f-11e5-bcf7-6805ca197e01', False, 400),
     ]
-    company_province_guid_list = [
+    delivery_params = [
         ('e80b3d9f-091f-11e5-bcf7-dpolgkeigjiej', False, 400), ("", False, 400), (None, False, 400), (False, False, 400),
-        (True, False, 400),
+        (True, False, 400)
     ]

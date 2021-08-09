@@ -2,7 +2,9 @@ from tests.utils.json_fixture import JsonFixture
 from tests.utils.variables import Orders
 from tests.utils.http_manager import HttpManager
 import pytest
+import pytest_check as check
 import random
+
 
 
 class TestCreateOrder:
@@ -146,7 +148,7 @@ class TestCreateOrder:
                                                   'result: {result.json()["success"]}'
 
     @pytest.mark.smoke
-    @pytest.mark.parametrize('guid, res, status_code', Orders.company_province_guid_list)
+    @pytest.mark.parametrize('guid, res, status_code', Orders.delivery_params)
     def test_create_order_with_different_province_guid(self, create_cart_item, guid, res, status_code):
         cart_id_hash, product_id, cart_id = create_cart_item
         body = JsonFixture.order_data()
@@ -162,7 +164,6 @@ class TestCreateOrder:
         assert result.json()['success'] == res, f'Wrong success result. Expected result is {res}. Actual ' \
                                                   'result: {result.json()["success"]}'
 
-    @pytest.mark.test
     @pytest.mark.smoke
     def test_create_order_without_province_guid(self, create_cart_item):
         cart_id_hash, product_id, cart_id = create_cart_item
@@ -179,9 +180,65 @@ class TestCreateOrder:
         assert result.json()['success'] == False, f'Wrong success result. Expected result is False. Actual ' \
                                                 'result: {result.json()["success"]}'
 
+    @pytest.mark.smoke
+    @pytest.mark.parametrize('guid, res, status_code', Orders.delivery_params)
+    def test_create_order_with_different_city_guid(self, create_cart_item, guid, res, status_code):
+        cart_id_hash, product_id, cart_id = create_cart_item
+        body = JsonFixture.order_data()
+        body['cart_id_hash'] = cart_id_hash
+        body['delivery']['type_guid'] = TestCreateOrder.delivery_type
+        body['delivery']['company_guid'] = TestCreateOrder.company_guid_np
+        body['delivery']['province_guid'] = TestCreateOrder.province_guid_np
+        body['delivery']['city_guid'] = guid
+        body['delivery']['office_guid'] = TestCreateOrder.office_guid_np
+        result = HttpManager.post(Orders.create_order_endpoint, body, JsonFixture.get_header_without_token())
+        check.equal(result.status_code, status_code), f'Wrong status code. Expected result is {status_code}. Actual ' \
+                                                                                    f'result is {result.status_code}'
+        check.equal(result.json()['success'], res), f'Wrong success result. Expected result is {res}. Actual ' \
+                                                        'result: {result.json()["success"]}'
 
+    @pytest.mark.smoke
+    def test_create_order_without_city_guid(self, create_cart_item):
+        cart_id_hash, product_id, cart_id = create_cart_item
+        body = JsonFixture.order_data()
+        body['cart_id_hash'] = cart_id_hash
+        body['delivery']['type_guid'] = TestCreateOrder.delivery_type
+        body['delivery'].pop('city_guid')
+        body['delivery']['office_guid'] = TestCreateOrder.office_guid_np
+        result = HttpManager.post(Orders.create_order_endpoint, body, JsonFixture.get_header_without_token())
+        check.equal(result.status_code, 400), f'Wrong status code. Expected result is {400}. Actual ' \
+                                                      f'result is {result.status_code}'
+        check.is_false(result.json()['success']), f'Wrong success result. Expected result is False. Actual ' \
+                                                    'result: {result.json()["success"]}'
 
+    @pytest.mark.smoke
+    @pytest.mark.parametrize('guid, res, status_code', Orders.delivery_params)
+    def test_create_order_with_different_office_guid(self, create_cart_item, guid, res, status_code):
+        cart_id_hash, product_id, cart_id = create_cart_item
+        body = JsonFixture.order_data()
+        body['cart_id_hash'] = cart_id_hash
+        body['delivery']['type_guid'] = TestCreateOrder.delivery_type
+        body['delivery']['city_guid'] = TestCreateOrder.city_guid_np
+        body['delivery']['office_guid'] = guid
+        result = HttpManager.post(Orders.create_order_endpoint, body, JsonFixture.get_header_without_token())
+        check.equal(result.status_code, status_code), f'Wrong status code. Expected result is {status_code}. Actual ' \
+                                              f'result is {result.status_code}'
+        check.equal(result.json()['success'], res), f'Wrong success result. Expected result is False. Actual ' \
+                                                  'result: {result.json()["success"]}'
 
-
+    @pytest.mark.test
+    @pytest.mark.smoke
+    def test_create_order_without_office_guid(self, create_cart_item):
+        cart_id_hash, product_id, cart_id = create_cart_item
+        body = JsonFixture.order_data()
+        body['cart_id_hash'] = cart_id_hash
+        body['delivery']['type_guid'] = TestCreateOrder.delivery_type
+        body['delivery']['city_guid'] = TestCreateOrder.city_guid_np
+        body['delivery'].pop('office_guid')
+        result = HttpManager.post(Orders.create_order_endpoint, body, JsonFixture.get_header_without_token())
+        check.equal(result.status_code, 400), f'Wrong status code. Expected result is 400. Actual ' \
+                                              f'result is {result.status_code}'
+        check.is_false(result.json()['success']), f'Wrong success result. Expected result is False. Actual ' \
+                                                  'result: {result.json()["success"]}'
 
 
