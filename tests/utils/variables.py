@@ -69,3 +69,6 @@ class Orders:
         ('e80b3d9f-091f-11e5-bcf7-dpolgkeigjiej', False, 400), ("", False, 400), (None, False, 400), (False, False, 400),
         (True, False, 400)
     ]
+
+class OrdersByClick:
+    oreder_by_click_endpoint = 'https://api.platform.masterservice.company/api/v1/order-one-click-add'

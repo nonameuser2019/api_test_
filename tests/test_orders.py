@@ -226,7 +226,6 @@ class TestCreateOrder:
         check.equal(result.json()['success'], res), f'Wrong success result. Expected result is False. Actual ' \
                                                   'result: {result.json()["success"]}'
 
-    @pytest.mark.test
     @pytest.mark.smoke
     def test_create_order_without_office_guid(self, create_cart_item):
         cart_id_hash, product_id, cart_id = create_cart_item
@@ -240,5 +239,6 @@ class TestCreateOrder:
                                               f'result is {result.status_code}'
         check.is_false(result.json()['success']), f'Wrong success result. Expected result is False. Actual ' \
                                                   'result: {result.json()["success"]}'
+
 
 

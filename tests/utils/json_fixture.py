@@ -91,3 +91,15 @@ class JsonFixture:
             "cart_id_hash": None
         }
         return order_data
+
+    @staticmethod
+    def order_by_click(phone="380990000000", product_id="5028837", attribute_id="", count="1", currency_id=980):
+        order_data = {
+            "phone": phone,
+            "product_id": product_id,
+            "attribute_id": attribute_id,
+            "count": count,
+            "currency_id": currency_id,
+            "customer_id": ""
+        }
+        return order_data

@@ -34,16 +34,9 @@ connection = pymysql.connect(host=HOST,
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 cursor = connection.cursor()
-area_list = cursor.execute(f'SELECT DescriptionRu, Ref FROM delivery_np_area')
+order_id = cursor.execute(f'SELECT id FROM `order` WHERE id="1428"')
 data = cursor.fetchall()
-random_area = data[random.randint(0, len(data))]['Ref']
-print(random_area)
-cursor.execute("SELECT DescriptionRu, Ref FROM delivery_np_cities WHERE Area=(%s)", random_area)
-temp_data = cursor.fetchall()
-random_city = temp_data[random.randint(0, len(temp_data))]['Ref']
-cursor.execute("SELECT DescriptionRu, Ref FROM delivery_np_offices WHERE CityRef=(%s)", random_city)
-office_list = cursor.fetchall()
-print(office_list)
+print(len(data))
 
 
 
