@@ -7,9 +7,12 @@ class ClientRegistration:
                  ('Alex1', False), ('   ', False), ('Alex+!', False)
                  ]
     phone_list = [
-        ('0685340603', True), ('30685340603', True), ('380685340603', True), ('+380685340603', True), ('685340603', False),
-        ('+3800685340603', False),('++380685340603', False), ('+38006853406f3', False), ('+38006853406F3', False),
-        ('+38006853406а3', False), ('+38006853406А3', False), ('068534060!', False), ('06853&060!', False)
+        ('0685340603', True, 200), ('30685340603', True, 200), ('380685340603', True, 200),
+        ('+380685340603', True, 200), ('685340603', False, 400), ('+3800685340603', False, 400),
+        ('++380685340603', False, 400), ('+38006853406f3', False, 400), ('+38006853406F3', False, 400),
+        ('+38006853406а3', False, 400), ('+38006853406А3', False, 400), ('068534060!', False, 400),
+        ('06853&060!', False, 400), ("", False, 400), (False, False, 400), (True, False, 400),
+        (380685340603, False, 400)
     ]
     email_list = [
         ('TEST@gmail.com', True), ('TEST777@gmail.com', True), ('test-777@gmail.com', True), ('test_777@gmail.com', True),
@@ -73,3 +76,10 @@ class Orders:
 
 class OrdersByClick:
     oreder_by_click_endpoint = 'https://api.platform.masterservice.company/api/v1/order-one-click-add'
+    product_id_list = [
+        ('1005008736925', 400, False), ("", 400, False), (True, 400, False), (False, 400, False),
+        ('Hey Bro!', 400, False)
+    ]
+    attribute_id_list = [
+        ('', 400, False), ('123', 400, False), (123, 400, False)
+    ]

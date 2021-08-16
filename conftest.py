@@ -55,7 +55,7 @@ def create_account():
 @pytest.fixture()
 def get_product_balance(product_id=5010187):
     endpoint = 'https://api.platform.masterservice.company/api/v1/product/'
-    headers= {
+    headers = {
         'Content-Type': 'application/json'
     }
     payload = {"id": product_id}

@@ -1,5 +1,5 @@
 from tests.utils.json_fixture import JsonFixture
-from tests.utils.variables import ClientRegistration, ClientAuth
+from tests.utils.variables import ClientRegistration
 from tests.utils.http_manager import HttpManager
 import requests
 import pytest
@@ -65,8 +65,9 @@ class TestRegistrationNewUser:
         db_connect.execute('DELETE FROM customers WHERE phone="0685340603"')
 
     @pytest.mark.smoke
-    @pytest.mark.parametrize('phone, res', ClientRegistration.phone_list)
-    def test_reg_with_different_phones(self, db_connect, phone, res):
+    @pytest.mark.parametrize('phone, res, status_code', ClientRegistration.phone_list)
+    def test_reg_with_different_phones(self, db_connect, phone, res, status_code):
+        # add assert with chek status code
         body = JsonFixture.for_register_new_user(login=phone)
         result = HttpManager.post(ClientRegistration.reg_endpoint, body, headers=JsonFixture.get_header_without_token())
         response_json = result.json()

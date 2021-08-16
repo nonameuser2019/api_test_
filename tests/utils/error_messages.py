@@ -6,7 +6,7 @@ class ErrorMessages:
         return f'Wrong status code. Expected result is {exp}. Actual result is{act}'
 
     @staticmethod
-    def success_message_error(exp, act):
+    def succ_mess_error(exp, act):
         return f'Wrong success result. Expected result is {exp}. Actual result is: {act}'
 
     @staticmethod
