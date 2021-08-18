@@ -3,12 +3,12 @@ import configparser
 class JsonFixture:
 
     @staticmethod
-    def for_register_new_user(name='main_test', login='0685340603', password='Qwert123'):
+    def for_register_new_user(name='main_test', email='test@gmail.com', login='0685340603', password='Qwert123'):
         json = {
-            "data": {
-                "name": name,
-                "login": login,
-                "password": password}
+            "name": name,
+            "email": email,
+            "login": login,
+            "password": password
         }
         return json
 
@@ -33,7 +33,8 @@ class JsonFixture:
     @staticmethod
     def get_header_without_token():
         headers = {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
         }
         return headers
 

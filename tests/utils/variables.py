@@ -2,26 +2,27 @@ import pytest
 
 
 class ClientRegistration:
-    reg_endpoint = 'https://api.platform.masterservice.company/api/v1/customer/register'
-    name_list = [('Александр', True), ('Марк-Эдгар', True), ('Mark-Edgar', True), ('', False), ('Al', False),
-                 ('Alex1', False), ('   ', False), ('Alex+!', False)
+    reg_endpoint = 'https://api.platform.masterservice.company/api/v1/register'
+    name_list = [('Александр', True, 200), ('Марк-Эдгар', True, 200), ('Mark-Edgar', True, 200), ('', False, 422),
+                 ('Al', False, 422), ('Alex1', False, 422), ('   ', False, 422), ('Alex+!', False, 422)
                  ]
     phone_list = [
         ('0685340603', True, 200), ('30685340603', True, 200), ('380685340603', True, 200),
-        ('+380685340603', True, 200), ('685340603', False, 400), ('+3800685340603', False, 400),
-        ('++380685340603', False, 400), ('+38006853406f3', False, 400), ('+38006853406F3', False, 400),
-        ('+38006853406а3', False, 400), ('+38006853406А3', False, 400), ('068534060!', False, 400),
-        ('06853&060!', False, 400), ("", False, 400), (False, False, 400), (True, False, 400),
-        (380685340603, False, 400)
+        ('+380685340603', True, 200), ('685340603', False, 422), ('+3800685340603', False, 422),
+        ('++380685340603', False, 422), ('+38006853406f3', False, 422), ('+38006853406F3', False, 422),
+        ('+38006853406а3', False, 422), ('+38006853406А3', False, 422), ('068534060!', False, 422),
+        ('06853&060!', False, 422), ("", False, 422), (False, False, 422), (True, False, 422),
+        (380685340603, False, 422)
     ]
     email_list = [
-        ('TEST@gmail.com', True), ('TEST777@gmail.com', True), ('test-777@gmail.com', True), ('test_777@gmail.com', True),
-        ('test.777@gmail.com', True), ('test.77.7@gmail.com', True), ('@gmail.com', False), ('user@gmail.', False),
-        ('user1gmail.com', False), ('user@gmailcom', False), ('u..ser@gmail.com', False)
+        ('TEST@gmail.com', True, 200), ('TEST777@gmail.com', True, 200), ('test-777@gmail.com', True, 200),
+        ('test_777@gmail.com', True, 200), ('test.777@gmail.com', True, 200), ('test.77.7@gmail.com', True, 200),
+        ('@gmail.com', False, 422), ('user@gmail.', False, 422), ('user1gmail.com', False, 422),
+        ('user@gmailcom', False, 422), ('u..ser@gmail.com', False, 422)
     ]
     password_list = [
-        ('!Qwerty123', True), ('Uytrew1', False), ('FRASDFN1', False), ('qazwsx2', False), ('qazwsdfG', False),
-        ('Qwerty1щ', False), ('Qwerty1Ц', False)
+        ('!Qwerty123', True, 200), ('Uytrew1', False, 422), ('FRASDFN1', False, 422), ('qazwsx2', False, 422),
+        ('qazwsdfG', False, 422), ('Qwerty1щ', False, 422), ('Qwerty1Ц', False, 422)
     ]
 
 
