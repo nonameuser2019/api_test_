@@ -17,14 +17,17 @@ class TestCreateOrder:
     delivery_type = 'b983ffd7-6fee-4341-823c-bc970e783c64'  # delivery company
 
     # below all tests with for check delivery type pickup
+    @pytest.mark.test
     @pytest.mark.smoke
-    def test_check_possibility_create_order_pickup_delivery(self, create_cart_item):
+    @pytest.mark.parametrize('guid, res, status_code', Orders.pick_up_addresses)
+    def test_check_use_pick_with_all_pickup_adresses(self, create_cart_item, guid, res, status_code):
         cart_id_hash, product_id, cart_id = create_cart_item
         body = JsonFixture.order_data()
         body['cart_id_hash'] = cart_id_hash
+        body['address_pickup_guid'] = guid
         result = HttpManager.post(Orders.create_order_endpoint, body, JsonFixture.get_header_without_token())
-        check.equal(result.status_code, 200), ErrorMessages.status_code_error(200, result.status_code)
-        check.equal(result.json()['success'], True), ErrorMessages.succ_mess_error(True, result.json()['success'])
+        check.equal(result.status_code, status_code), ErrorMessages.status_code_error(status_code, result.status_code)
+        check.equal(result.json()['success'], res), ErrorMessages.succ_mess_error(res, result.json()['success'])
 
     @pytest.mark.parametrize('delivery_guid, res, status_code', Orders.delivery_type_list)
     @pytest.mark.smoke

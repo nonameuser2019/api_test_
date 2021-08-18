@@ -73,6 +73,12 @@ class Orders:
         ('e80b3d9f-091f-11e5-bcf7-dpolgkeigjiej', False, 400), ("", False, 400), (None, False, 400), (False, False, 400),
         (True, False, 400)
     ]
+    pick_up_addresses = [
+        ('cacdaf1a-8638-11e7-a99d-a0369f7dce69', True, 200), ('c6568da3-bd65-11e7-a99d-509a4ca97561', True, 200),
+        ('66b1b46b-0a4b-11e8-a9a1-509a4ca97561', True, 200), ('32681a55-8e4b-11e8-a9aa-509a4ca97561', True, 200),
+        ('b7ed3201-8638-11e7-a99d-a0369f7dce69', True, 200), ('e4161498-cfce-11e9-a9b9-509a4ca97563', True, 200),
+        ('035b2c03-8f1b-11e8-a9aa-509a4ca97561', True, 200)
+    ]
 
 class OrdersByClick:
     oreder_by_click_endpoint = 'https://api.platform.masterservice.company/api/v1/order-one-click-add'
