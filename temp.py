@@ -34,29 +34,29 @@ connection = pymysql.connect(host=HOST,
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 cursor = connection.cursor()
-order_id = cursor.execute(f'SELECT id FROM `order` WHERE id="1428"')
+order_id = cursor.execute('SELECT id FROM customers WHERE phone=%s', "%38006853406f3")
 data = cursor.fetchall()
-print(len(data))
+print(data)
 
 
 
 
-def get_adress_guid(adress):
-    cursor = connection.cursor()
-    cursor.execute('SELECT name, guid FROM service_addresses')
-    data = cursor.fetchall()
-    for ad in data:
-        if adress in ad['name']:
-            return ad['guid']
-
-def get_all_adresses_guid():
-    cursor = connection.cursor()
-    cursor.execute('SELECT name, guid FROM service_addresses')
-    data = cursor.fetchall()
-    adress_list = []
-    for ad in data:
-        adress_list.append(ad['guid'])
-    return adress_list
+# def get_adress_guid(adress):
+#     cursor = connection.cursor()
+#     cursor.execute('SELECT name, guid FROM service_addresses')
+#     data = cursor.fetchall()
+#     for ad in data:
+#         if adress in ad['name']:
+#             return ad['guid']
+#
+# def get_all_adresses_guid():
+#     cursor = connection.cursor()
+#     cursor.execute('SELECT name, guid FROM service_addresses')
+#     data = cursor.fetchall()
+#     adress_list = []
+#     for ad in data:
+#         adress_list.append(ad['guid'])
+#     return adress_list
 
 
 

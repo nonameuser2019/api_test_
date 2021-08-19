@@ -13,12 +13,10 @@ class JsonFixture:
         return json
 
     @staticmethod
-    def for_login_customers(login='0000000000', password='Qwerty123'):
+    def for_login_customers(login='0685340603', password='qwerty'):
         json = {
-            "data": {
-                "login": login,
-                "password": password
-            }
+            "login": login,
+            "password": password
         }
         return json
 
@@ -34,7 +32,8 @@ class JsonFixture:
     def get_header_without_token():
         headers = {
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'X-localization': 'ru'
         }
         return headers
 

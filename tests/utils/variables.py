@@ -7,7 +7,7 @@ class ClientRegistration:
                  ('Al', False, 422), ('Alex1', False, 422), ('   ', False, 422), ('Alex+!', False, 422)
                  ]
     phone_list = [
-        ('0685340603', True, 200), ('30685340603', True, 200), ('380685340603', True, 200),
+        ('0685340603', True, 200), ('30685340603', False, 422), ('380685340603', True, 200),
         ('+380685340603', True, 200), ('685340603', False, 422), ('+3800685340603', False, 422),
         ('++380685340603', False, 422), ('+38006853406f3', False, 422), ('+38006853406F3', False, 422),
         ('+38006853406а3', False, 422), ('+38006853406А3', False, 422), ('068534060!', False, 422),
@@ -21,13 +21,13 @@ class ClientRegistration:
         ('user@gmailcom', False, 422), ('u..ser@gmail.com', False, 422)
     ]
     password_list = [
-        ('!Qwerty123', True, 200), ('Uytrew1', False, 422), ('FRASDFN1', False, 422), ('qazwsx2', False, 422),
-        ('qazwsdfG', False, 422), ('Qwerty1щ', False, 422), ('Qwerty1Ц', False, 422)
+        ('!Qwerty123', True, 200), ('Uytrew1', True, 200), ('FRASDFN1', True, 200), ('qazwsx2', True, 200),
+        ('qazwsdfG', True, 200), ('Qwerty1щ', False, 422), ('Qwerty1Ц', False, 422)
     ]
 
 
 class ClientAuth:
-    login_endpoint = 'https://api.platform.masterservice.company/api/v1/customer/login'
+    login_endpoint = 'https://api.platform.masterservice.company/api/v1/login'
     login_password_list = [
         ('', 'Qwerty123', False), ('main_test@qa.com', '', False), ('', '', False), ('main_test@qa.co', 'Qwerty123', False),
         ('main_test@qa.com', 'False', False), ('main_test@qa.co', 'Qwerty1231', False)
