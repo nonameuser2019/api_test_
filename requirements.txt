@@ -1,3 +1,5 @@
+allure-pytest==2.9.43
+allure-python-commons==2.9.43
 attrs==21.2.0
 certifi==2021.5.30
 chardet==4.0.0
@@ -9,7 +11,9 @@ py==1.10.0
 PyMySQL==1.0.2
 pyparsing==2.4.7
 pytest==6.2.4
+pytest-check==1.0.1
 requests==2.25.1
 simplejson==3.17.2
+six==1.16.0
 toml==0.10.2
 urllib3==1.26.6

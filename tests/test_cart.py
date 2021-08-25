@@ -1,35 +1,33 @@
 from tests.utils.json_fixture import JsonFixture
 from tests.utils.variables import Cart
 from tests.utils.http_manager import HttpManager
+from tests.utils.sql_query import Sql
+from tests.utils.error_messages import ErrorMessages
 import pytest
 import json
 from simplejson.errors import JSONDecodeError
+import pytest_check as check
 
 
 class TestCartAddItem:
-
+    @pytest.mark.test
     @pytest.mark.parametrize('product_id, attr_id, count, client_id, res, status_code', Cart.product_id_list)
     @pytest.mark.smoke
     def test_check_add_item_with_different_id_param(self, db_connect, product_id, attr_id, count, client_id, res,
                                                     status_code):
         body = JsonFixture.product_data(product_id, attr_id, count, client_id)
         result = HttpManager.post(Cart.add_cart_item_endpoint, body, headers=JsonFixture.get_header_without_token())
-        assert result.status_code == status_code, f'Wrong status code from server. Status code from server: {result.status_code}'
-        assert result.json()[
-                   'success'] == res, f'Expected status code 400. Success message from server: {result.json()["success"]}'
-        db_connect.execute(f"DELETE FROM cart_temp WHERE id={result.json()['data']['id']}")
+        check.equal(result.status_code, status_code, ErrorMessages.status_code_error(status_code, result.status_code))
+        check.equal(result.json()['success'], res, ErrorMessages.get_response_error(result.json()))
+        db_connect.execute(Sql.delete_cart(result.json()['data']['id']))
 
     @pytest.mark.smoke
     def test_check_response_attr_with_response_with_valid_params(self, db_connect):
-        product_id = 5010187
-        attr_id = ""
-        count = 2
-        client_id = ""
-        body = JsonFixture.product_data(product_id, attr_id, count, client_id)
+        body = JsonFixture.product_data(5010187, "", 2, "")
         result = HttpManager.post(Cart.add_cart_item_endpoint, body, headers=JsonFixture.get_header_without_token())
         cart = json.loads(result.content)['data']['cart']
         assert result.status_code == 200, f'Wrong status code from server. Status code from server: {result.status_code}'
-        assert json.loads(cart)['5010187'][0]['count'] == count
+        assert json.loads(cart)['5010187'][0]['count'] == 2
         db_connect.execute(f"DELETE FROM cart_temp WHERE id={result.json()['data']['id']}")
 
     @pytest.mark.smoke

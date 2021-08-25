@@ -4,7 +4,7 @@ import pytest
 class ClientRegistration:
     reg_endpoint = 'https://api.platform.masterservice.company/api/v1/register'
     name_list = [('Александр', True, 200), ('Марк-Эдгар', True, 200), ('Mark-Edgar', True, 200), ('', False, 422),
-                 ('Al', False, 422), ('Alex1', False, 422), ('   ', False, 422), ('Alex+!', False, 422)
+                 ('Al', True, 200), ('Alex1', False, 422), ('   ', False, 422), ('Alex+!', False, 422)
                  ]
     phone_list = [
         ('0685340603', True, 200), ('30685340603', False, 422), ('380685340603', True, 200),
@@ -21,7 +21,7 @@ class ClientRegistration:
         ('user@gmailcom', False, 422), ('u..ser@gmail.com', False, 422)
     ]
     password_list = [
-        ('!Qwerty123', True, 200), ('Uytrew1', True, 200), ('FRASDFN1', True, 200), ('qazwsx2', True, 200),
+        ('!Qwerty123', True, 200), ('Uytrew1', False, 422), ('FRASDFN1', True, 200), ('qazwsx2', False, 422),
         ('qazwsdfG', True, 200), ('Qwerty1щ', False, 422), ('Qwerty1Ц', False, 422)
     ]
 
@@ -46,33 +46,33 @@ class Cart:
     update_cart_endpoint = 'https://api.platform.masterservice.company/api/v1/cart/'
     get_cart_endpoint = 'https://api.platform.masterservice.company/api/v1/'
     product_id_list = [
-        (5010187, "", 1, "", True, 200), (None, "", 2, "", False, 400), ("", "", 1, "", False, 400), (100500100, "", 1, "", False, 400),
-        ("FFF", "", 1, "", False, 400), ("5010187", "", 2, "", False, 400)
+        (5010187, "", 1, "", True, 200), (None, "", 2, "", False, 422), ("", "", 1, "", False, 422), (100500100, "", 1, "", False, 422),
+        ("FFF", "", 1, "", False, 422), ("5010187", "", 2, "", False, 422)
     ]
 
     product_count_list = [
-        (None, False, 400), (0, False, 400), (-1, False, 400), ("FFF", False, 400), (1, True, 200)
+        (None, False, 422), (0, False, 422), (-1, False, 422), ("FFF", False, 422), (1, True, 200)
     ]
     product_change_count_list = [
-        (5, True, 200), (1, True, 200), (0, False, 400), (2, False, 400)
+        (5, True, 200), (1, True, 200), (0, False, 422), (2, False, 422)
     ]
 
 class Orders:
     create_order_endpoint = 'https://api.platform.masterservice.company/api/v1/order-add'
     delivery_type_list = [
-        ('f442a653-f442a653-f442a653', False, 400), ('', False, 400),  (None, False, 400), (True, False, 400),
-        (False, False, 400), (0, False, 400)
+        ('f442a653-f442a653-f442a653', False, 422), ('', False, 422),  (None, False, 422), (True, False, 422),
+        (False, False, 422), (0, False, 422)
     ]
     adress_pickup_list = [
-        ('', False, 400), (None, False, 400), (True, False, 400), (False, False, 400),
-        ('cacdaf1a-8638-11e7-a99d-a0369f7dce00', False, 400)
+        ('', False, 422), (None, False, 422), (True, False, 422), (False, False, 422),
+        ('cacdaf1a-8638-11e7-a99d-a0369f7dce00', False, 422)
     ]
     company_guid_list = [
-        ('e80b3d9f-091f-11e5-bcf7-6805ca197e01', False, 400),
+        ('e80b3d9f-091f-11e5-bcf7-6805ca197e01', False, 422),
     ]
     delivery_params = [
-        ('e80b3d9f-091f-11e5-bcf7-dpolgkeigjiej', False, 400), ("", False, 400), (None, False, 400), (False, False, 400),
-        (True, False, 400)
+        ('e80b3d9f-091f-11e5-bcf7-dpolgkeigjiej', False, 422), ("", False, 422), (None, False, 422), (False, False, 422),
+        (True, False, 422)
     ]
     pick_up_addresses = [
         ('cacdaf1a-8638-11e7-a99d-a0369f7dce69', True, 200), ('c6568da3-bd65-11e7-a99d-509a4ca97561', True, 200),
@@ -84,9 +84,9 @@ class Orders:
 class OrdersByClick:
     oreder_by_click_endpoint = 'https://api.platform.masterservice.company/api/v1/order-one-click-add'
     product_id_list = [
-        ('1005008736925', 400, False), ("", 400, False), (True, 400, False), (False, 400, False),
-        ('Hey Bro!', 400, False)
+        ('1005008736925', 422, False), ("", 422, False), (True, 422, False), (False, 422, False),
+        ('Hey Bro!', 422, False)
     ]
     attribute_id_list = [
-        ('', 400, False), ('123', 400, False), (123, 400, False)
+        ('', 422, False), ('123', 422, False), (123, 422, False)
     ]

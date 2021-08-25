@@ -33,8 +33,10 @@ connection = pymysql.connect(host=HOST,
                              db=DB_NAME,
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
+email = "test@gmail.com"
+phone = "380685340603"
 cursor = connection.cursor()
-order_id = cursor.execute('SELECT id FROM customers WHERE phone=%s', "%38006853406f3")
+cursor.execute('SELECT * FROM customers WHERE phone = "{}" OR email = "{}"'.format(phone, email))
 data = cursor.fetchall()
 print(data)
 
