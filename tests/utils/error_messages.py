@@ -19,3 +19,11 @@ class ErrorMessages:
             return f'Response error {response["errors"]}'
         except KeyError:
             return 'There are not errors in response'
+
+    @staticmethod
+    def check_param_error(ex_res, result):
+        return f'Expected result is {ex_res}. Actual resutl is {result}'
+
+    @staticmethod
+    def check_param_is_present(name):
+        return f'Param {name} is not present in response'

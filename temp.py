@@ -15,30 +15,30 @@ import bcrypt
 from tests.utils.json_fixture import JsonFixture
 
 
-thisfolder = os.path.dirname(os.path.abspath(__file__))
-inifile = os.path.join(thisfolder, 'db.ini')
-parser = configparser.ConfigParser()
-parser.read(inifile)
-
-HOST = parser.get('db', 'host')
-PORT = int(parser.get('db', 'port'))
-DB_NAME = parser.get('db', 'db_name')
-USER_NAME = parser.get('db', 'user_name')
-DB_PASSWORD = parser.get('db', 'db_password')
-
-connection = pymysql.connect(host=HOST,
-                             port=PORT,
-                             user=USER_NAME,
-                             password=DB_PASSWORD,
-                             db=DB_NAME,
-                             charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor)
-email = "test@gmail.com"
-phone = "380685340603"
-cursor = connection.cursor()
-cursor.execute('SELECT * FROM customers WHERE phone = "{}" OR email = "{}"'.format(phone, email))
-data = cursor.fetchall()
-print(data)
+# thisfolder = os.path.dirname(os.path.abspath(__file__))
+# inifile = os.path.join(thisfolder, 'db.ini')
+# parser = configparser.ConfigParser()
+# parser.read(inifile)
+#
+# HOST = parser.get('db', 'host')
+# PORT = int(parser.get('db', 'port'))
+# DB_NAME = parser.get('db', 'db_name')
+# USER_NAME = parser.get('db', 'user_name')
+# DB_PASSWORD = parser.get('db', 'db_password')
+#
+# connection = pymysql.connect(host=HOST,
+#                              port=PORT,
+#                              user=USER_NAME,
+#                              password=DB_PASSWORD,
+#                              db=DB_NAME,
+#                              charset='utf8mb4',
+#                              cursorclass=pymysql.cursors.DictCursor)
+# email = "test@gmail.com"
+# phone = "380685340603"
+# cursor = connection.cursor()
+# cursor.execute('SELECT * FROM customers WHERE phone = "{}" OR email = "{}"'.format(phone, email))
+# data = cursor.fetchall()
+# print(data)
 
 
 
