@@ -62,8 +62,9 @@ class TestRegistrationNewUser:
         body = JsonFixture.for_register_new_user(phone=phone)
         result = HttpManager.post(ClientRegistration.reg_endpoint, body, headers=JsonFixture.get_header_without_token())
         db_connect.execute(Sql.delete_user(body['phone'], body['email']))
-        check.equal(result.status_code, status_code, ErrorMessages.status_code_error(status_code, result.status_code))
-        check.equal(result.json()['success'], res, ErrorMessages.get_response_error(result.json()))
+        assert result.status_code == res, ErrorMessages.status_code_error(status_code, result.status_code)
+        # check.equal(result.status_code, status_code, ErrorMessages.status_code_error(status_code, result.status_code))
+        # check.equal(result.json()['success'], res, ErrorMessages.get_response_error(result.json()))
 
     @pytest.mark.smoke
     @pytest.mark.parametrize('email, res, status_code', ClientRegistration.email_list)
