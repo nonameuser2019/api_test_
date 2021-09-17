@@ -96,3 +96,12 @@ from tests.utils.json_fixture import JsonFixture
 # response = requests.get(endpoint, headers=headers, params=payload)
 # print(response)
 # print(response.json()["data"]["quantity"])
+
+endpoint = 'https://api.platform.masterservice.company/api/v1/login'
+body = {
+    'login': '0685340603',
+    'password': '33160900'
+}
+headers = {'Content-Type': 'application/json', 'Accept': 'application/json', 'X-localization': 'ru'}
+result = requests.post(endpoint, json=body, headers=headers)
+print(result.status_code)

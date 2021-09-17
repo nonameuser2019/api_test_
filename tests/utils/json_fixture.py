@@ -13,9 +13,9 @@ class JsonFixture:
         return json
 
     @staticmethod
-    def for_login_customers(phone='0685340603', password='qwerty123'):
+    def for_login_customers(phone='0685340603', password='33160900'):
         json = {
-            "phone": phone,
+            "login": phone,
             "password": password
         }
         return json

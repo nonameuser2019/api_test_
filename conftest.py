@@ -40,8 +40,8 @@ def db_connect():
 @pytest.fixture()
 def auth():
     body = JsonFixture.for_login_customers()
-    headers = {'Content-Type': 'application/json'}
-    result = requests.post(ClientAuth.login_endpoint, json=body, headers=headers)
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json', 'X-localization': 'ru'}
+    result = HttpManager.post(ClientAuth.login_endpoint, body, headers=headers)
     return result
 
 

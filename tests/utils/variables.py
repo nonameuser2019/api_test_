@@ -90,3 +90,6 @@ class OrdersByClick:
     attribute_id_list = [
         ('', 422, False), ('123', 422, False), (123, 422, False)
     ]
+
+class OrdersHistory:
+    get_orders_endpoint = 'https://api.platform.masterservice.company/api/v1/orders'
