@@ -4,7 +4,7 @@ import os
 import pymysql.cursors
 import requests
 from tests.utils.json_fixture import JsonFixture
-from tests.utils.variables import ClientAuth, ClientRegistration, Cart
+from tests.utils.variables import ClientAuth, ClientRegistration, Cart, OrdersHistory
 from tests.utils.http_manager import HttpManager
 
 
@@ -81,7 +81,11 @@ def get_adress_pick_up_guid(city):
         if city in ad['name']:
             return ad['guid']
 
-
+@pytest.fixture()
+def get_max_page(auth):
+    headers = JsonFixture.get_headers(auth.json()['data']['access_token'])
+    result = HttpManager.get(OrdersHistory.get_orders_endpoint, headers=headers)
+    return result.json()['meta']['last_page']
 
 
 

@@ -93,3 +93,6 @@ class OrdersByClick:
 
 class OrdersHistory:
     get_orders_endpoint = 'https://api.platform.masterservice.company/api/v1/orders'
+    per_page_list = [
+        (-15, 200, 15), ('15', 200, 15), ('-15', 200, 15)
+    ]

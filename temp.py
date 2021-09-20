@@ -98,10 +98,18 @@ from tests.utils.json_fixture import JsonFixture
 # print(response.json()["data"]["quantity"])
 
 endpoint = 'https://api.platform.masterservice.company/api/v1/login'
+get_endpoint = 'https://api.platform.masterservice.company/api/v1/orders'
 body = {
     'login': '0685340603',
     'password': '33160900'
 }
 headers = {'Content-Type': 'application/json', 'Accept': 'application/json', 'X-localization': 'ru'}
+payload = {'search': '452'}
 result = requests.post(endpoint, json=body, headers=headers)
-print(result.status_code)
+token = result.json()['data']['access_token']
+headers['Authorization'] = 'Bearer ' + token
+result = requests.get(get_endpoint, json=body, headers=headers)
+
+date_1 = result.json()['data'][0]['date'].split()[0]
+date_2 = '2021-09-15'
+print(date_1 < date_2)
