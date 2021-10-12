@@ -8,5 +8,5 @@ class Sql:
         return f"DELETE FROM cart_temp WHERE id={data}"
 
     @staticmethod
-    def get_order_ids(customer_id=20128):
+    def get_order_ids(customer_id=20143):
         return f"SELECT id FROM `order` WHERE customer_id = {customer_id}"

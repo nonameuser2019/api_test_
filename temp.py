@@ -1,4 +1,5 @@
 import configparser
+import datetime
 import random
 
 import pytest
@@ -13,6 +14,8 @@ from tests.utils.json_fixture import JsonFixture
 from tests.utils.variables import ClientAuth
 import bcrypt
 from tests.utils.json_fixture import JsonFixture
+from datetime import datetime
+
 
 
 # thisfolder = os.path.dirname(os.path.abspath(__file__))
@@ -111,5 +114,6 @@ headers['Authorization'] = 'Bearer ' + token
 result = requests.get(get_endpoint, json=body, headers=headers)
 
 date_1 = result.json()['data'][0]['date'].split()[0]
-date_2 = '2021-09-15'
-print(date_1 < date_2)
+print(date_1)
+clear_date = datetime.strptime(date_1, '%Y-%m-%d')
+print(clear_date)

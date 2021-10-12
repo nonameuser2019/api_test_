@@ -7,6 +7,7 @@ from tests.utils.http_manager import HttpManager
 from tests.utils.sql_query import Sql
 import pytest
 import pytest_check as check
+from datetime import datetime
 
 
 class TestOrderHistory:
@@ -61,7 +62,7 @@ class TestOrderHistory:
         result = HttpManager.get(OrdersHistory.get_orders_endpoint, headers=headers, payload=payload)
         check.equal(result.status_code, 200, ErrorMessages.status_code_error(200, result.status_code))
         for order in result.json()['data']:
-            assert order['date'].split()[0] > start_date, f'Wrong filter of date'
+            check.equal(datetime.strptime(order['date'].split()[0], '%Y-%m-%d'),datetime.strptime(start_date, '%Y-%m-%d'))
 
     @pytest.mark.smoke
     def test_send_request_with_finish_date_smaller_start_date(self, auth):
@@ -98,7 +99,8 @@ class TestOrderHistory:
         headers = JsonFixture.get_headers(auth.json()['data']['access_token'])
         result = HttpManager.get(OrdersHistory.get_orders_endpoint, headers=headers, payload=payload)
         check.equal(result.status_code, status_code, ErrorMessages.status_code_error(status_code, result.status_code))
-        check.equal(result.json()['meta']['per_page'], response_value, f'Wrong per_page value in response')
+        if result.status_code == 200:
+            check.equal(result.json()['meta']['per_page'], response_value, f'Wrong per_page value in response')
 
     @pytest.mark.smoke
     def test_send_with_string_cant_be_number_of_per_page(self, auth):
@@ -132,10 +134,12 @@ class TestOrderHistory:
         check.equal(result.status_code, 200, ErrorMessages.status_code_error(200, result.status_code))
         check.is_false(result.json()['data'], f'Wrong orders count')
 
-    @pytest.mark.test
     @pytest.mark.smoke
     def test_request_with_page_string_param_that_cant_be_number(self, auth, get_max_page):
         payload = {'page': 'qwerty'}
         headers = JsonFixture.get_headers(auth.json()['data']['access_token'])
         result = HttpManager.get(OrdersHistory.get_orders_endpoint, headers=headers, payload=payload)
-        check.equal(result.status_code, 422, ErrorMessages.status_code_error(200, result.status_code))
+        if result.status_code == 200:
+            check.equal(result.json()['meta']['per_page'], 15, f'Error wrong value in per_page param')
+        else:
+            check.equal(result.status_code, 422, ErrorMessages.status_code_error(200, result.status_code))
