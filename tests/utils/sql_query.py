@@ -10,3 +10,7 @@ class Sql:
     @staticmethod
     def get_order_ids(customer_id=20143):
         return f"SELECT id FROM `order` WHERE customer_id = {customer_id}"
+
+    @staticmethod
+    def get_usr_data(customer_id):
+        return f"SELECT first_name, last_name, middle_name, email, phone FROM customers WHERE id = {customer_id}"

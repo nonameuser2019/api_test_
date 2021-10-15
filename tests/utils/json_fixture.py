@@ -103,3 +103,12 @@ class JsonFixture:
             "customer_id": ""
         }
         return order_data
+
+    @staticmethod
+    def b2c_info(first_name='Alex', last_name='Zhernoklev', middle_name='Alexandrovich'):
+        data = {
+            'first_name': first_name,
+            'last_name': last_name,
+            'middle_name': middle_name
+        }
+        return data

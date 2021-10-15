@@ -1,5 +1,5 @@
 import pytest
-
+from .support_tools import *
 
 class ClientRegistration:
     reg_endpoint = 'https://api.platform.masterservice.company/api/v1/register'
@@ -95,4 +95,12 @@ class OrdersHistory:
     get_orders_endpoint = 'https://api.platform.masterservice.company/api/v1/orders'
     per_page_list = [
         (-15, 422, '15'), ('15', 200, '15'), ('-15', 422, '15')
+    ]
+
+class B2cProfile:
+    get_b2c_prof_endpoint = 'https://api.platform.masterservice.company/api/v1/b2c-profile'
+    change_info_endpoint = 'https://api.platform.masterservice.company/api/v1/b2c-profile/change-info'
+    name_list = [
+        ('a', 422), ('al', 200), (generate_long_name(128), 200), (generate_long_name(129), 422), ('Alex', 200),
+        ('Alex First', 200), ('Alex123', 422), ('     ', 422), ('Alex-First', 200), ('Alex#+=', 422)
     ]

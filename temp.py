@@ -18,24 +18,24 @@ from datetime import datetime
 
 
 
-# thisfolder = os.path.dirname(os.path.abspath(__file__))
-# inifile = os.path.join(thisfolder, 'db.ini')
-# parser = configparser.ConfigParser()
-# parser.read(inifile)
-#
-# HOST = parser.get('db', 'host')
-# PORT = int(parser.get('db', 'port'))
-# DB_NAME = parser.get('db', 'db_name')
-# USER_NAME = parser.get('db', 'user_name')
-# DB_PASSWORD = parser.get('db', 'db_password')
-#
-# connection = pymysql.connect(host=HOST,
-#                              port=PORT,
-#                              user=USER_NAME,
-#                              password=DB_PASSWORD,
-#                              db=DB_NAME,
-#                              charset='utf8mb4',
-#                              cursorclass=pymysql.cursors.DictCursor)
+thisfolder = os.path.dirname(os.path.abspath(__file__))
+inifile = os.path.join(thisfolder, 'db.ini')
+parser = configparser.ConfigParser()
+parser.read(inifile)
+
+HOST = parser.get('db', 'host')
+PORT = int(parser.get('db', 'port'))
+DB_NAME = parser.get('db', 'db_name')
+USER_NAME = parser.get('db', 'user_name')
+DB_PASSWORD = parser.get('db', 'db_password')
+
+connection = pymysql.connect(host=HOST,
+                             port=PORT,
+                             user=USER_NAME,
+                             password=DB_PASSWORD,
+                             db=DB_NAME,
+                             charset='utf8mb4',
+                             cursorclass=pymysql.cursors.DictCursor)
 # email = "test@gmail.com"
 # phone = "380685340603"
 # cursor = connection.cursor()
@@ -100,20 +100,26 @@ from datetime import datetime
 # print(response)
 # print(response.json()["data"]["quantity"])
 
-endpoint = 'https://api.platform.masterservice.company/api/v1/login'
-get_endpoint = 'https://api.platform.masterservice.company/api/v1/orders'
-body = {
-    'login': '0685340603',
-    'password': '33160900'
-}
-headers = {'Content-Type': 'application/json', 'Accept': 'application/json', 'X-localization': 'ru'}
-payload = {'search': '452'}
-result = requests.post(endpoint, json=body, headers=headers)
-token = result.json()['data']['access_token']
-headers['Authorization'] = 'Bearer ' + token
-result = requests.get(get_endpoint, json=body, headers=headers)
+# endpoint = 'https://api.platform.masterservice.company/api/v1/login'
+# get_endpoint = 'https://api.platform.masterservice.company/api/v1/orders'
+# body = {
+#     'login': '0685340603',
+#     'password': '33160900'
+# }
+# headers = {'Content-Type': 'application/json', 'Accept': 'application/json', 'X-localization': 'ru'}
+# payload = {'search': '452'}
+# result = requests.post(endpoint, json=body, headers=headers)
+# token = result.json()['data']['access_token']
+# headers['Authorization'] = 'Bearer ' + token
+# result = requests.get(get_endpoint, json=body, headers=headers)
+#
+# date_1 = result.json()['data'][0]['date'].split()[0]
+# print(date_1)
+# clear_date = datetime.strptime(date_1, '%Y-%m-%d')
+# print(clear_date)
 
-date_1 = result.json()['data'][0]['date'].split()[0]
-print(date_1)
-clear_date = datetime.strptime(date_1, '%Y-%m-%d')
-print(clear_date)
+# customer_id = 20143
+# cursor = connection.cursor()
+# cursor.execute(f"SELECT first_name, last_name, middle_name, email, FROM customers phone WHERE customer_id = {customer_id)")
+# data = cursor.fetchall()
+# print(data)
