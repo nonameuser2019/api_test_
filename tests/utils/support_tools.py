@@ -9,5 +9,7 @@ def generate_long_name(lenght):
     return name
 
 
-name = generate_long_name(128)
-assert len(name) == 128, 'Wrong names length'
+def get_neccessary_guid(array, pattern):
+    for obj in array:
+        if pattern in obj['name']:
+            return obj

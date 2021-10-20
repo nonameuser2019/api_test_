@@ -112,3 +112,13 @@ class JsonFixture:
             'middle_name': middle_name
         }
         return data
+
+    @staticmethod
+    def delivery_address(name, delivery_type, pick_up_address, city_guid):
+        data = {
+            'name': name,
+            'type_guid': delivery_type,
+            'city_guid': city_guid,
+            'address_pickup_guid': pick_up_address
+        }
+        return data

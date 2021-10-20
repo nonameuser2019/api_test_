@@ -14,3 +14,12 @@ class Sql:
     @staticmethod
     def get_usr_data(customer_id):
         return f"SELECT first_name, last_name, middle_name, email, phone FROM customers WHERE id = {customer_id}"
+
+    @staticmethod
+    def get_delivery_type_guid(type_name):
+        return "SELECT guid FROM delivery_type WHERE name LIKE '{}'".format(type_name)
+
+    @staticmethod
+    def get_pick_up_addresses_guid():
+        return 'SELECT name, guid FROM service_addresses'
+

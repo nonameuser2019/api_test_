@@ -6,6 +6,7 @@ import requests
 from tests.utils.json_fixture import JsonFixture
 from tests.utils.variables import ClientAuth, ClientRegistration, Cart, OrdersHistory
 from tests.utils.http_manager import HttpManager
+import random
 
 
 @pytest.fixture()
@@ -74,12 +75,18 @@ def create_cart_item(product_id=5010187, count=2):
 
 
 @pytest.fixture()
-def get_adress_pick_up_guid(city):
-    db_connect.execute('SELECT name, guid FROM service_addresses')
+# не готова, запрос не хочет работать с библиотекой
+def get_address_pick_up_guid(db_connect):
+    db_connect.execute('SELECT guid FROM service_cities')
+    city_guid_list = db_connect.fetchall()
+    city_guid = random.choice(city_guid_list)["guid"]
+    db_connect.execute('SELECT service_addresses.guid address_guid, service_addresses.name, '
+                       'service_cities.name FROM service_addressesJOIN service_cities ON '
+                       'service_addresses.city_id = service_cities.id '
+                       'WHERE service_cities.guid = "2db80678-b4fb-11e3-abca-74d435146aa2"')
     data = db_connect.fetchall()
-    for ad in data:
-        if city in ad['name']:
-            return ad['guid']
+    return random.choice(data), city_guid
+
 
 @pytest.fixture()
 def get_max_page(auth):
@@ -88,4 +95,15 @@ def get_max_page(auth):
     return result.json()['meta']['last_page']
 
 
+@pytest.fixture()
+def get_city_guid(db_connect):
+    db_connect.execute('SELECT name, guid FROM service_cities')
+    data = db_connect.fetchall()
+    return data
+
+@pytest.fixture()
+def get_delivery_type(db_connect):
+    db_connect.execute('SELECT name, guid FROM delivery_type')
+    data = db_connect.fetchall()
+    return data
 

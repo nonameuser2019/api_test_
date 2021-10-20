@@ -36,14 +36,15 @@ connection = pymysql.connect(host=HOST,
                              db=DB_NAME,
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
-# email = "test@gmail.com"
-# phone = "380685340603"
-# cursor = connection.cursor()
-# cursor.execute('SELECT * FROM customers WHERE phone = "{}" OR email = "{}"'.format(phone, email))
-# data = cursor.fetchall()
-# print(data)
+cursor = connection.cursor()
+cursor.execute('SELECT guid FROM service_cities')
+cursor.execute('SELECT guid FROM service_cities')
+city_guid_list = cursor.fetchall()
+city_guid = random.choice(city_guid_list)["guid"]
 
-
+cursor.execute('SELECT name, guid FROM service_cities')
+data = cursor.fetchall()
+print(data)
 
 
 # def get_adress_guid(adress):
@@ -123,3 +124,7 @@ connection = pymysql.connect(host=HOST,
 # cursor.execute(f"SELECT first_name, last_name, middle_name, email, FROM customers phone WHERE customer_id = {customer_id)")
 # data = cursor.fetchall()
 # print(data)
+
+
+# test_data = [{'name': 'name_1', 'guid': 'guid_1'}, {'name': 'name_2', 'guid': 'guid_2'}]
+# print(random.choice(test_data))

@@ -104,3 +104,15 @@ class B2cProfile:
         ('a', 422), ('al', 200), (generate_long_name(128), 200), (generate_long_name(129), 422), ('Alex', 200),
         ('Alex First', 200), ('Alex123', 422), ('     ', 422), ('Alex-First', 200), ('Alex#+=', 422)
     ]
+
+class ProfileAdresses:
+    add_delivery_endpoint = 'https://api.platform.masterservice.company/api/v1/delivery'
+    delivery_type_list = [
+        ('cacdaf1a-8638-11e7-a99d-a0369f7dce69', 422), ('', 422), (True, 422)
+    ]
+    city_guid_list = [
+        ('7150812c-9b87-11de-822f-000c2965ae0e', 422), ('', 422), (True, 422)
+    ]
+    pick_up_delivery_adr_list = [
+        ('7150812c-9b87-11de-822f-000c2965ae0e', 422), ('', 422), (True, 422)
+    ]

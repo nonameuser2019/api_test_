@@ -84,7 +84,6 @@ class TestChangeB2cInfo:
         result = HttpManager.update(B2cProfile.change_info_endpoint, body, headers=headers)
         check.equal(result.status_code, 401, ErrorMessages.status_code_error(401, result.status_code))
 
-    @pytest.mark.test
     @pytest.mark.smoke
     @pytest.mark.parametrize('name, status_code', B2cProfile.name_list)
     def test_send_requests_with_different_first_name(self, auth, name, status_code):
@@ -93,7 +92,6 @@ class TestChangeB2cInfo:
         result = HttpManager.update(B2cProfile.change_info_endpoint, body, headers=headers)
         check.equal(result.status_code, status_code, ErrorMessages.status_code_error(status_code, result.status_code))
 
-    @pytest.mark.test
     @pytest.mark.smoke
     @pytest.mark.parametrize('name, status_code', B2cProfile.name_list)
     def test_send_requests_with_different_last_name(self, auth, name, status_code):
@@ -102,7 +100,6 @@ class TestChangeB2cInfo:
         result = HttpManager.update(B2cProfile.change_info_endpoint, body, headers=headers)
         check.equal(result.status_code, status_code, ErrorMessages.status_code_error(status_code, result.status_code))
 
-    @pytest.mark.test
     @pytest.mark.smoke
     @pytest.mark.parametrize('name, status_code', B2cProfile.name_list)
     def test_send_requests_with_different_middle_name(self, auth, name, status_code):
