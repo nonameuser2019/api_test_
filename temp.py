@@ -34,7 +34,11 @@ connection = pymysql.connect(host=HOST,
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 cursor = connection.cursor()
-order_id = cursor.execute('SELECT id FROM customers WHERE phone=%s', "%38006853406f3")
+order_id = cursor.execute('SELECT pc.name, pc.category_id, pc.url, pc.guid FROM product_category pc JOIN '
+                          'product_category_parent pcp ON pcp.category_guid = pc.guid WHERE pcp.parent_guid IN '
+                          '(SELECT pc.guid FROM product_category pc JOIN product_category_parent '
+                          'pcp ON pcp.category_guid = pc.guid WHERE pcp.parent_guid = '
+                          '("65551dd2-19ea-11eb-a9c0-509a4ca97563")) OR pcp.parent_guid = "65551dd2-19ea-11eb-a9c0-509a4ca97563"')
 data = cursor.fetchall()
 print(data)
 

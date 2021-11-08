@@ -213,4 +213,3 @@ class TestCreateOrder:
         result = HttpManager.post(Orders.create_order_endpoint, body, JsonFixture.get_header_without_token())
         check.equal(result.status_code, 400), ErrorMessages.status_code_error(400, result.status_code)
         check.equal(result.json()['success'], False), ErrorMessages.succ_mess_error(False, result.json()['success'])
-

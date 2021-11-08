@@ -3,11 +3,11 @@ import configparser
 class JsonFixture:
 
     @staticmethod
-    def for_register_new_user(name='main_test', email='test@gmail.com', login='0685340603', password='Qwert123'):
+    def for_register_new_user(name='main_test', login='0685340603', email='test@gmail.com', password='Qwert123'):
         json = {
             "name": name,
-            "email": email,
             "login": login,
+            "email": email,
             "password": password
         }
         return json

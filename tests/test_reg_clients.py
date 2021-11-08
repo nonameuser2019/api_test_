@@ -8,6 +8,7 @@ import pytest_check as check
 
 class TestRegistrationNewUser:
 
+    @pytest.mark.test
     @pytest.mark.smoke
     def test_reg_with_valid_param(self, db_connect):
         body = JsonFixture.for_register_new_user()
