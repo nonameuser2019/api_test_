@@ -4,8 +4,8 @@ class HttpManager:
     #headers = {'Content-Type': 'application/json'}
 
     @staticmethod
-    def get(url, headers):
-        result = requests.get(url, headers=headers)
+    def get(url, headers, payload=None):
+        result = requests.get(url, headers=headers, params=payload)
         return result
 
     @staticmethod

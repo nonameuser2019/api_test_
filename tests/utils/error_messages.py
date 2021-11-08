@@ -3,7 +3,7 @@ class ErrorMessages:
 
     @staticmethod
     def status_code_error(exp, act):
-        return f'Wrong status code. Expected result is {exp}. Actual result is{act}'
+        return f'Wrong status code. Expected result is {exp}. Actual result is {act}'
 
     @staticmethod
     def succ_mess_error(exp, act):
@@ -12,3 +12,18 @@ class ErrorMessages:
     @staticmethod
     def count_order_error(exp, act):
         return f'Wrong order count in DB, expected result is: {exp} but actual result is: {act}'
+
+    @staticmethod
+    def get_response_error(response: dict):
+        try:
+            return f'Response error {response["errors"]}'
+        except KeyError:
+            return 'There are not errors in response'
+
+    @staticmethod
+    def check_param_error(ex_res, actual):
+        return f'Expected result is: {ex_res}. Actual result is: {actual}'
+
+    @staticmethod
+    def check_param_is_present(name):
+        return f'Param {name} is not present in response'

@@ -15,7 +15,7 @@ class TestAuthCustomers:
         check.equal(result.status_code, 200), ErrorMessages.status_code_error(200, result.status_code)
         check.equal(result.json()['success'], True), ErrorMessages.succ_mess_error(True, result.json()['success'])
 
-
+    @pytest.mark.skip
     @pytest.mark.smoke
     def test_sign_in_with_login_is_email(self):
         body = JsonFixture.for_login_customers('main_test@qa.com', 'Qwerty123')
@@ -29,7 +29,7 @@ class TestAuthCustomers:
 
     @pytest.mark.smoke
     def test_sign_in_with_confused_login_and_password(self):
-        body = JsonFixture.for_login_customers(login='Qwerty123', password='0777777777')
+        body = JsonFixture.for_login_customers(phone='qwerty123', password='0685340603')
         result = HttpManager.post(ClientAuth.login_endpoint, body, headers=JsonFixture.get_header_without_token())
         response_json = result.json()
         assert result.status_code == 401 and not response_json['success'] and response_json[
@@ -39,7 +39,7 @@ class TestAuthCustomers:
     @pytest.mark.smoke
     @pytest.mark.parametrize('login, password, res', ClientAuth.login_password_list)
     def test_sign_in_with_different_login_and_password(self, login, password, res):
-        body = JsonFixture.for_login_customers(login='')
+        body = JsonFixture.for_login_customers(phone='')
         result = HttpManager.post(ClientAuth.login_endpoint, body, headers=JsonFixture.get_header_without_token())
         response_json = result.json()
         assert result.status_code == 401, f'Wrong status code, expected status code: 401 actual status code: {result.status_code}'

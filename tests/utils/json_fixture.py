@@ -10,12 +10,20 @@ class JsonFixture:
             "email": email,
             "password": password
         }
+
+    def for_register_new_user(name='main_test', email='test@gmail.com', phone='380685340603', password='Qwert123'):
+        json = {
+            "name": name,
+            "email": email,
+            "phone": phone,
+            "password": password
+        }
         return json
 
     @staticmethod
-    def for_login_customers(login='0685340603', password='qwerty'):
+    def for_login_customers(phone='0685340603', password='33160900'):
         json = {
-            "login": login,
+            "login": phone,
             "password": password
         }
         return json
@@ -103,3 +111,22 @@ class JsonFixture:
             "customer_id": ""
         }
         return order_data
+
+    @staticmethod
+    def b2c_info(first_name='Alex', last_name='Zhernoklev', middle_name='Alexandrovich'):
+        data = {
+            'first_name': first_name,
+            'last_name': last_name,
+            'middle_name': middle_name
+        }
+        return data
+
+    @staticmethod
+    def delivery_address(name, delivery_type, pick_up_address, city_guid):
+        data = {
+            'name': name,
+            'type_guid': delivery_type,
+            'city_guid': city_guid,
+            'address_pickup_guid': pick_up_address
+        }
+        return data
