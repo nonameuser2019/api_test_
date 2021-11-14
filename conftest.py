@@ -32,11 +32,11 @@ def db_connect():
     try:
         with connection.cursor() as cursor:
             yield cursor
-            print('\nSuccessful connection to database')
+            allure.step('\nSuccessful connection to database')
     finally:
         connection.commit()
         connection.close()
-        print('\nClosed db connect')
+        allure.step('Close DB connect')
 
 
 @pytest.fixture()

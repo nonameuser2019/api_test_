@@ -23,3 +23,7 @@ class Sql:
     def get_pick_up_addresses_guid():
         return 'SELECT name, guid FROM service_addresses'
 
+    @staticmethod
+    def get_order_by_order_id(order_id):
+        return f'SELECT id FROM `order` WHERE id={order_id}'
+

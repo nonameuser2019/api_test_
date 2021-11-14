@@ -107,6 +107,9 @@ class B2cProfile:
     possitive_assers = [
         ('first_name', 200), ('last_name', 200), ('middle_name', 200), ('email', 200), ('phone', 200)
     ]
+    change_info_aserts = [
+        ('first_name', 200), ('last_name', 200), ('middle_name', 200)
+    ]
 
 
 class ProfileAdresses:
