@@ -19,7 +19,7 @@ class TestOrderByOneClick:
         result = HttpManager.post(OrdersByClick.oreder_by_click_endpoint, body, JsonFixture.get_header_without_token())
         db_connect.execute(Sql.get_order_by_order_id(result.json()['data']['order_id']))
         data = db_connect.fetchall()
-        with allure.step(AllureStep.check_status_code('200')):
+        with allure.step(AllureStep.check_status_code(200)):
             assert result.status_code == 200, ErrorMessages.status_code_error(200, result.status_code)
         with allure.step('Check success param in response, expected result is True'):
             assert result.json()['success'], ErrorMessages.get_response_error(result.json())
@@ -44,7 +44,7 @@ class TestOrderByOneClick:
     def test_send_req_with_unavailable_product(self):
         body = JsonFixture.order_by_click(product_id="249953")
         result = HttpManager.post(OrdersByClick.oreder_by_click_endpoint, body, JsonFixture.get_header_without_token())
-        with allure.step(AllureStep.check_status_code('200')):
+        with allure.step(AllureStep.check_status_code(200)):
             assert result.status_code == 200, ErrorMessages.status_code_error(200, result.status_code)
         with allure.step('Check success param in response, expected result is True'):
             assert result.json()['success'], ErrorMessages.get_response_error(result.json())
@@ -54,7 +54,7 @@ class TestOrderByOneClick:
     def test_send_request_with_empty_body(self):
         body = {}
         result = HttpManager.post(OrdersByClick.oreder_by_click_endpoint, body, JsonFixture.get_header_without_token())
-        with allure.step(AllureStep.check_status_code('422')):
+        with allure.step(AllureStep.check_status_code(422)):
             assert result.status_code == 422, ErrorMessages.status_code_error(422, result.status_code)
 
     @pytest.mark.smoke
@@ -62,7 +62,7 @@ class TestOrderByOneClick:
     def test_send_request_with_wrong_phone(self):
         body = JsonFixture.order_by_click(phone='+38')
         result = HttpManager.post(OrdersByClick.oreder_by_click_endpoint, body, JsonFixture.get_header_without_token())
-        with allure.step(AllureStep.check_status_code('422')):
+        with allure.step(AllureStep.check_status_code(422)):
             assert result.status_code == 422, ErrorMessages.status_code_error(422, result.status_code)
 
     @pytest.mark.smoke
@@ -82,7 +82,7 @@ class TestOrderByOneClick:
         body = JsonFixture.order_by_click()
         body.pop('phone')
         result = HttpManager.post(OrdersByClick.oreder_by_click_endpoint, body, JsonFixture.get_header_without_token())
-        with allure.step(AllureStep.check_status_code('422')):
+        with allure.step(AllureStep.check_status_code(422)):
             assert result.status_code == 422, ErrorMessages.status_code_error(422, result.status_code)
         with allure.step(AllureStep.check_success_message(False)):
             assert result.json()['success'] == False, ErrorMessages.succ_mess_error(False, result.json()['success'])
@@ -131,7 +131,7 @@ class TestOrderByOneClick:
         body = JsonFixture.order_by_click()
         body.pop('count')
         result = HttpManager.post(OrdersByClick.oreder_by_click_endpoint, body, JsonFixture.get_header_without_token())
-        with allure.step(AllureStep.check_status_code(200)):
+        with allure.step(AllureStep.check_status_code(422)):
             assert result.status_code == 422, ErrorMessages.status_code_error(422, result.status_code)
 
     @pytest.mark.smoke
@@ -140,7 +140,7 @@ class TestOrderByOneClick:
         body = JsonFixture.order_by_click()
         body['customer_id'] = '000999888'
         result = HttpManager.post(OrdersByClick.oreder_by_click_endpoint, body, JsonFixture.get_header_without_token())
-        with allure.step(AllureStep.check_status_code(200)):
+        with allure.step(AllureStep.check_status_code(422)):
             assert result.status_code == 422, ErrorMessages.status_code_error(422, result.status_code)
 
     @pytest.mark.smoke
@@ -148,27 +148,35 @@ class TestOrderByOneClick:
         body = JsonFixture.order_by_click()
         body.pop('customer_id')
         result = HttpManager.post(OrdersByClick.oreder_by_click_endpoint, body, JsonFixture.get_header_without_token())
-        check.equal(result.status_code, 422, ErrorMessages.status_code_error(422, result.status_code))
-        check.equal(result.json()['success'], False, ErrorMessages.get_response_error(result.json()))
+        with allure.step(AllureStep.check_status_code(422)):
+            assert result.status_code == 422, ErrorMessages.status_code_error(422, result.status_code)
+        with allure.step(AllureStep.check_success_message(False)):
+            assert result.json()['success'] == False, ErrorMessages.get_response_error(result.json())
 
     @pytest.mark.smoke
     def test_send_request_with_wrong_currency_id(self):
         body = JsonFixture.order_by_click(currency_id=840)
         result = HttpManager.post(OrdersByClick.oreder_by_click_endpoint, body, JsonFixture.get_header_without_token())
-        check.equal(result.status_code, 422, ErrorMessages.status_code_error(422, result.status_code))
-        check.equal(result.json()['success'], False, ErrorMessages.get_response_error(result.json()))
+        with allure.step(AllureStep.check_status_code(422)):
+            assert result.status_code == 422, ErrorMessages.status_code_error(422, result.status_code)
+        with allure.step(AllureStep.check_success_message(False)):
+            assert result.json()['success'] == False, ErrorMessages.get_response_error(result.json())
 
     @pytest.mark.smoke
     def test_send_request_without_currency_id(self):
         body = JsonFixture.order_by_click()
         body.pop('currency_id')
         result = HttpManager.post(OrdersByClick.oreder_by_click_endpoint, body, JsonFixture.get_header_without_token())
-        check.equal(result.status_code, 422, ErrorMessages.status_code_error(422, result.status_code))
-        check.equal(result.json()['success'], False, ErrorMessages.get_response_error(result.json()))
+        with allure.step(AllureStep.check_status_code(422)):
+            assert result.status_code == 422, ErrorMessages.status_code_error(422, result.status_code)
+        with allure.step(AllureStep.check_success_message(False)):
+            assert result.json()['success'] == False, ErrorMessages.get_response_error(result.json())
 
     @pytest.mark.smoke
     def test_send_request_without_currency_id_string_type(self):
         body = JsonFixture.order_by_click('980')
         result = HttpManager.post(OrdersByClick.oreder_by_click_endpoint, body, JsonFixture.get_header_without_token())
-        check.equal(result.status_code, 422, ErrorMessages.status_code_error(422, result.status_code))
-        check.equal(result.json()['success'], False, ErrorMessages.get_response_error(result.json()))
+        with allure.step(AllureStep.check_status_code(422)):
+            assert result.status_code == 422, ErrorMessages.status_code_error(422, result.status_code)
+        with allure.step(AllureStep.check_success_message(False)):
+            assert result.json()['success'] == False, ErrorMessages.get_response_error(result.json())
