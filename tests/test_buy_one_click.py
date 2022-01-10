@@ -4,7 +4,6 @@ from tests.utils.error_messages import ErrorMessages
 from tests.utils.allure_step import AllureStep
 import pytest
 from tests.utils.variables import OrdersByClick, ClientRegistration
-from simplejson.errors import JSONDecodeError
 from tests.utils.sql_query import Sql
 import allure
 from pytest_check import check
